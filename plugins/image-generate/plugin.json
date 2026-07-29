@@ -1,7 +1,7 @@
 {
   "name": "image-generate",
   "version": "3.0.0",
-  "description": "Provider-agnostic AI image generation and editing. Routes to Nano Banana 2 (Google), GPT Image 2 (OpenAI), and Seedream (ByteDance) through one interface, with markdown styles, batch generation, and reference/edit image support.",
+  "description": "Provider-agnostic AI image generation and editing. One interface over Nano Banana Pro, 2 and 2 Lite (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance), with per-model sizing and a background advisory when the pinned models go stale.",
   "author": {
     "name": "Jack Rudenko",
     "email": "i@madappgang.com",

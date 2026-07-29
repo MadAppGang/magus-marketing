@@ -1,7 +1,7 @@
 {
   "name": "seo",
   "version": "1.8.1",
-  "description": "Highly autonomous SEO toolkit (~80% autonomy) with AUTO GATEs, self-correction loops, and multi-model validation. Features autonomous keyword research, quality-gate progression, E-E-A-T self-assessment, and data-driven performance analysis. Includes interactive /seo:start entry point, content optimization, technical audits, and analytics integrations (GA4, GSC).",
+  "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
   "author": {
     "name": "Jack Rudenko",
     "email": "i@madappgang.com",

@@ -14,7 +14,7 @@
     {
       "name": "claudish",
       "source": "./plugins/claudish",
-      "description": "Claudish MCP runtime \u2014 external model proxy with team voting, async sessions, and channel notifications. Required by code-analysis, dev, multimodel, designer, agentdev, seo. Dual-published to magus and magus-marketing because seo depends on it.",
+      "description": "MCP runtime for external AI models. Proxies OpenRouter, Ollama and LM Studio, runs blind team voting across models, manages async sessions, and streams channel notifications. Required by code-analysis, dev, multimodel, designer and seo.",
       "version": "1.0.0",
       "author": {
         "name": "Jack Rudenko",
@@ -34,12 +34,19 @@
         "orchestration",
         "runtime"
       ],
-      "strict": true
+      "strict": true,
+      "releases": [
+        {
+          "version": "1.0.0",
+          "date": "2026-05-09",
+          "summary": "Dedicated runtime plugin for the Claudish MCP server. Owns the command: \"claudish\", args:\u2026"
+        }
+      ]
     },
     {
       "name": "seo",
       "source": "./plugins/seo",
-      "description": "Declared claudish as a dependency (extracted into a dedicated runtime plugin)",
+      "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
       "version": "1.8.1",
       "author": {
         "name": "Jack Rudenko",
@@ -58,12 +65,27 @@
         "search-console",
         "performance-analysis"
       ],
-      "strict": true
+      "strict": true,
+      "releases": [
+        {
+          "version": "1.8.1",
+          "date": "2026-07-29",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "Pointers to the deleted shared/model-aliases.json replaced with live-catalog resolution, and\u2026"
+        },
+        {
+          "version": "1.8.0",
+          "date": "2026-05-09",
+          "summary": "Declared claudish as a dependencies entry (was an implicit dependency consumed via\u2026"
+        }
+      ]
     },
     {
       "name": "video-editing",
       "source": "./plugins/video-editing",
-      "description": "FIX: rewrite descriptions to Anthropic's pattern, strip trigger tails",
+      "description": "Video editing toolkit. Drives FFmpeg for cutting and encoding, Whisper for transcription and subtitles, and Apple Final Cut Pro for project-level work.",
       "version": "1.1.4",
       "author": {
         "name": "Jack Rudenko",
@@ -83,12 +105,22 @@
         "editing",
         "subtitles"
       ],
-      "strict": true
+      "strict": true,
+      "releases": [
+        {
+          "version": "1.1.4",
+          "date": "2026-05-07",
+          "kinds": [
+            "Fixed"
+          ],
+          "summary": "Skill and agent descriptions rewritten to Anthropic's pattern, with the trailing\u2026"
+        }
+      ]
     },
     {
       "name": "image-generate",
       "source": "./plugins/image-generate",
-      "description": "Provider-agnostic AI image generation and editing. v3.0.0: renamed from the nano-banana plugin, TypeScript rewrite on the Vercel AI SDK, routes to Nano Banana 2 (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance).",
+      "description": "Provider-agnostic AI image generation and editing. One interface over Nano Banana Pro, 2 and 2 Lite (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance), with per-model sizing and a background advisory when the pinned models go stale.",
       "version": "3.0.0",
       "author": {
         "name": "Jack Rudenko",
@@ -107,12 +139,24 @@
         "seedream",
         "nano-banana"
       ],
-      "strict": true
+      "strict": true,
+      "releases": [
+        {
+          "version": "3.0.0",
+          "date": "2026-07-29",
+          "kinds": [
+            "Added",
+            "Changed",
+            "Fixed"
+          ],
+          "summary": "Provider-agnostic routing on the Vercel AI SDK (ai v7). Five pinned models across three\u2026"
+        }
+      ]
     },
     {
       "name": "instantly",
       "source": "./plugins/instantly",
-      "description": "Cold email outreach toolkit with Instantly.ai MCP integration. Campaign analytics, sequence building, A/B testing, lead management, and auto-optimization.",
+      "description": "Cold email outreach toolkit built on the Instantly.ai MCP. Campaign analytics, sequence building, A/B testing, lead management and auto-optimisation.",
       "version": "1.0.7",
       "author": {
         "name": "Jack Rudenko",
@@ -131,7 +175,17 @@
         "deliverability",
         "sales-automation"
       ],
-      "strict": true
+      "strict": true,
+      "releases": [
+        {
+          "version": "1.0.7",
+          "date": "2026-07-29",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "Pointers to the deleted shared/model-aliases.json replaced with live-catalog resolution, and\u2026"
+        }
+      ]
     }
   ]
 }

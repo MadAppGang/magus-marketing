@@ -74,3 +74,11 @@ The plugin's image model had gone stale invisibly. Pinning is still correct for 
 Keeping marketing tooling in the core development marketplace made `magus` noisier for the
 developers who are its main audience, and coupled unrelated release cadences. Plugin source
 still lives in one repo (`magus-src`); only distribution is split.
+
+---
+
+## [video-editing 1.1.4] - 2026-05-07
+
+### Fixed
+- Skill and agent descriptions rewritten to Anthropic's pattern, with the trailing
+  trigger-keyword lists stripped.
