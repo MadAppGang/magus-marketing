@@ -2,7 +2,7 @@
 name: generate
 description: Generate images from text prompts with optional styles and aspect ratios
 allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
-skills: nanobanana:gemini-api
+skills: image-generate:image-providers
 ---
 
 <role>
@@ -91,7 +91,7 @@ skills: nanobanana:gemini-api
     </strategy>
     <strategy name="style_not_found">
       List available styles.
-      Suggest creating new style with /nanobanana:style create.
+      Suggest creating new style with /image-generate:style create.
     </strategy>
     <strategy name="invalid_prompt">
       Report specific validation error.
@@ -121,7 +121,7 @@ skills: nanobanana:gemini-api
 
 <examples>
   <example name="Simple">
-    <input>/nanobanana:generate "A serene mountain lake at sunset"</input>
+    <input>/image-generate:generate "A serene mountain lake at sunset"</input>
     <flow>
       1. Parse: prompts=["A serene mountain lake at sunset"]
       2. Validate: prompt non-empty, no special chars
@@ -131,7 +131,7 @@ skills: nanobanana:gemini-api
   </example>
 
   <example name="With Style">
-    <input>/nanobanana:generate "gear icon" --style glass</input>
+    <input>/image-generate:generate "gear icon" --style glass</input>
     <flow>
       1. Parse: prompts=["gear icon"], style="glass"
       2. Resolve: styles/glass.md
@@ -141,7 +141,7 @@ skills: nanobanana:gemini-api
   </example>
 
   <example name="Batch">
-    <input>/nanobanana:generate "cube" "sphere" "pyramid" --style glass --aspect 1:1</input>
+    <input>/image-generate:generate "cube" "sphere" "pyramid" --style glass --aspect 1:1</input>
     <flow>
       1. Parse: prompts=["cube", "sphere", "pyramid"]
       2. Validate: all prompts valid, style exists

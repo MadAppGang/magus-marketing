@@ -3,7 +3,7 @@ name: style-format
 description: Style template format specification. Single markdown files that describe artistic direction.
 user-invocable: false
 ---
-plugin: nanobanana
+plugin: image-generate
 updated: 2026-01-20
 
 # Style Format Specification

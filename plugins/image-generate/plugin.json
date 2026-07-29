@@ -1,7 +1,7 @@
 {
-  "name": "nanobanana",
-  "version": "2.4.0",
-  "description": "AI image generation and editing using Google Gemini 3 Pro Image API. Simple CLI pattern with markdown styles, batch generation, and reference image support.",
+  "name": "image-generate",
+  "version": "3.0.0",
+  "description": "Provider-agnostic AI image generation and editing. Routes to Nano Banana 2 (Google), GPT Image 2 (OpenAI), and Seedream (ByteDance) through one interface, with markdown styles, batch generation, and reference/edit image support.",
   "author": {
     "name": "Jack Rudenko",
     "email": "i@madappgang.com",
@@ -11,10 +11,13 @@
   "keywords": [
     "image-generation",
     "ai-art",
-    "gemini",
     "text-to-image",
     "image-editing",
-    "style-transfer"
+    "style-transfer",
+    "gemini",
+    "openai",
+    "seedream",
+    "nano-banana"
   ],
   "category": "media",
   "agents": [
@@ -27,7 +30,7 @@
     "./commands/style.md"
   ],
   "skills": [
-    "./skills/gemini-api",
+    "./skills/image-providers",
     "./skills/style-format"
   ]
 }

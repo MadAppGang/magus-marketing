@@ -27,7 +27,7 @@ AI image generation and editing using Google Gemini 3 Pro Image API.
    ```json
    {
      "enabledPlugins": {
-       "nanobanana@magus": true
+       "image-generate@magus": true
      }
    }
    ```
@@ -41,7 +41,7 @@ AI image generation and editing using Google Gemini 3 Pro Image API.
 
 4. **Install dependencies**:
    ```bash
-   cd plugins/nanobanana
+   cd plugins/image-generate
    npm install
    ```
 
@@ -50,81 +50,81 @@ AI image generation and editing using Google Gemini 3 Pro Image API.
 ### Generate an Image
 
 ```bash
-/nanobanana:generate "A minimal 3D cube on black background"
+/image-generate:generate "A minimal 3D cube on black background"
 ```
 
 ### Create and Use a Style
 
 ```bash
 # Create a style
-/nanobanana:style create glass
+/image-generate:style create glass
 # Describe: "3D glass material with blue tint, reflections, black background"
 
 # Generate with style
-/nanobanana:generate "gear icon" --style glass
+/image-generate:generate "gear icon" --style glass
 ```
 
 ### Batch Generation
 
 ```bash
-/nanobanana:generate "cube" "sphere" "pyramid" --style glass
+/image-generate:generate "cube" "sphere" "pyramid" --style glass
 # Creates: generated/cube_001.png, generated/cube_002.png, generated/cube_003.png
 ```
 
 ### Edit an Image
 
 ```bash
-/nanobanana:edit photo.jpg "Make the sky more dramatic"
+/image-generate:edit photo.jpg "Make the sky more dramatic"
 ```
 
 ### With Reference Image
 
 ```bash
-/nanobanana:generate "Same style but with a sphere" --ref previous_output.png
+/image-generate:generate "Same style but with a sphere" --ref previous_output.png
 ```
 
 ## Commands
 
-### `/nanobanana:generate`
+### `/image-generate:generate`
 
 Generate images from text prompts.
 
 **Usage:**
 ```
-/nanobanana:generate "prompt" [--style name] [--aspect ratio] [--ref image]
+/image-generate:generate "prompt" [--style name] [--aspect ratio] [--ref image]
 ```
 
 **Examples:**
 ```bash
-/nanobanana:generate "A serene mountain lake at sunset"
-/nanobanana:generate "gear icon" --style glass
-/nanobanana:generate "cube" "sphere" "pyramid" --style glass --aspect 1:1
-/nanobanana:generate "landscape" --aspect 16:9
+/image-generate:generate "A serene mountain lake at sunset"
+/image-generate:generate "gear icon" --style glass
+/image-generate:generate "cube" "sphere" "pyramid" --style glass --aspect 1:1
+/image-generate:generate "landscape" --aspect 16:9
 ```
 
-### `/nanobanana:edit`
+### `/image-generate:edit`
 
 Edit existing images with natural language instructions.
 
 **Usage:**
 ```
-/nanobanana:edit <image> "instruction" [--ref image]
+/image-generate:edit <image> "instruction" [--ref image]
 ```
 
 **Examples:**
 ```bash
-/nanobanana:edit photo.jpg "Add dramatic sunset colors to the sky"
-/nanobanana:edit logo.png "Change colors to blue and gold"
-/nanobanana:edit scene.jpg "Add a rainbow" --ref rainbow_style.png
+/image-generate:edit photo.jpg "Add dramatic sunset colors to the sky"
+/image-generate:edit logo.png "Change colors to blue and gold"
+/image-generate:edit scene.jpg "Add a rainbow" --ref rainbow_style.png
 ```
 
-### `/nanobanana:style`
+### `/image-generate:style`
 
 Manage style templates.
 
 **Usage:**
 ```
-/nanobanana:style <action> [name]
+/image-generate:style <action> [name]
 ```
 
 **Actions:**
@@ -136,10 +136,10 @@ Manage style templates.
 
 **Examples:**
 ```bash
-/nanobanana:style create watercolor
-/nanobanana:style list
-/nanobanana:style show glass
-/nanobanana:style delete minimalist
+/image-generate:style create watercolor
+/image-generate:style list
+/image-generate:style show glass
+/image-generate:style delete minimalist
 ```
 
 ## Aspect Ratios
@@ -223,39 +223,39 @@ echo 'export GEMINI_API_KEY="your-key"' >> ~/.zshrc
 
 ```bash
 # 1. Create style
-/nanobanana:style create glass
+/image-generate:style create glass
 # Describe: "3D glass material with blue tint"
 
 # 2. Generate first icon
-/nanobanana:generate "home icon" --style glass
+/image-generate:generate "home icon" --style glass
 
 # 3. Use as reference for consistency
-/nanobanana:generate "settings icon" --style glass --ref generated/home_icon.png
-/nanobanana:generate "user icon" --style glass --ref generated/home_icon.png
+/image-generate:generate "settings icon" --style glass --ref generated/home_icon.png
+/image-generate:generate "user icon" --style glass --ref generated/home_icon.png
 ```
 
 ### Workflow 2: Photo Enhancement
 
 ```bash
 # 1. Edit photo
-/nanobanana:edit landscape.jpg "Add dramatic sunset sky"
+/image-generate:edit landscape.jpg "Add dramatic sunset sky"
 
 # 2. Further refinement
-/nanobanana:edit landscape_edited.png "Add birds flying in the distance"
+/image-generate:edit landscape_edited.png "Add birds flying in the distance"
 
 # 3. Apply artistic style
-/nanobanana:edit landscape_edited.png "Make it look painted" --ref painting_style.jpg
+/image-generate:edit landscape_edited.png "Make it look painted" --ref painting_style.jpg
 ```
 
 ### Workflow 3: YouTube Thumbnails
 
 ```bash
 # Create style for consistent branding
-/nanobanana:style create youtube_thumb
+/image-generate:style create youtube_thumb
 # Describe: "Bold text overlay, dramatic lighting, vibrant colors"
 
 # Generate thumbnails at 16:9
-/nanobanana:generate "Tech review" "Gaming" "Tutorial" --style youtube_thumb --aspect 16:9
+/image-generate:generate "Tech review" "Gaming" "Tutorial" --style youtube_thumb --aspect 16:9
 ```
 
 ## Error Handling
@@ -287,7 +287,7 @@ export GEMINI_API_KEY="your-key"
 
 List available styles:
 ```bash
-/nanobanana:style list
+/image-generate:style list
 ```
 
 ### Rate Limit Errors
@@ -295,7 +295,7 @@ List available styles:
 The plugin automatically retries with exponential backoff. You can increase retry attempts:
 ```bash
 # Via CLI: --max-retries 5
-node main.js out.png "prompt" --max-retries 5
+bun src/main.ts out.png "prompt" --max-retries 5
 ```
 
 ## Direct CLI Usage
@@ -304,25 +304,25 @@ You can use the Node.js script directly:
 
 ```bash
 # Simple generation
-node plugins/nanobanana/main.js output.png "A minimal 3D cube"
+node plugins/image-generate/main.js output.png "A minimal 3D cube"
 
 # With style
-node plugins/nanobanana/main.js out.png "gear" --style styles/glass.md
+node plugins/image-generate/main.js out.png "gear" --style styles/glass.md
 
 # Batch generation
-node plugins/nanobanana/main.js out.png "cube" "sphere" "pyramid"
+node plugins/image-generate/main.js out.png "cube" "sphere" "pyramid"
 
 # Edit image
-node plugins/nanobanana/main.js edited.png "Make sky blue" --edit photo.jpg
+node plugins/image-generate/main.js edited.png "Make sky blue" --edit photo.jpg
 
 # With reference
-node plugins/nanobanana/main.js out.png "prompt" --ref style.png
+node plugins/image-generate/main.js out.png "prompt" --ref style.png
 
 # Aspect ratio
-node plugins/nanobanana/main.js out.png "prompt" --aspect 16:9
+node plugins/image-generate/main.js out.png "prompt" --aspect 16:9
 
 # Show help
-node plugins/nanobanana/main.js --help
+node plugins/image-generate/main.js --help
 ```
 
 ## Development
@@ -335,7 +335,7 @@ node plugins/nanobanana/main.js --help
 ### Running Tests
 
 ```bash
-cd plugins/nanobanana
+cd plugins/image-generate
 
 # Install dependencies
 npm install
@@ -344,7 +344,7 @@ npm install
 echo $GEMINI_API_KEY
 
 # Test simple generation
-node main.js test.png "A simple red circle"
+bun src/main.ts test.png "A simple red circle"
 ```
 
 ## License
@@ -369,7 +369,7 @@ For issues and questions:
 **Initial Release**
 - Node.js implementation using @google/generative-ai
 - Uses Node.js (already available for Claude Code users)
-- Simple CLI: `node main.js output.png "prompt" [options]`
+- Simple CLI: `bun src/main.ts output.png "prompt" [options]`
 
 **Features:**
 - Text-to-image generation with Gemini 3 Pro Image

@@ -40,7 +40,7 @@
       "name": "seo",
       "source": "./plugins/seo",
       "description": "Declared claudish as a dependency (extracted into a dedicated runtime plugin)",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -86,10 +86,10 @@
       "strict": true
     },
     {
-      "name": "nanobanana",
-      "source": "./plugins/nanobanana",
-      "description": "AI image generation and editing using Google Gemini 3 Pro Image API. v2.3.1: Marketplace rename to magus. Simple Node.js CLI with markdown styles and batch generation.",
-      "version": "2.4.0",
+      "name": "image-generate",
+      "source": "./plugins/image-generate",
+      "description": "Provider-agnostic AI image generation and editing. v3.0.0: renamed from the nano-banana plugin, TypeScript rewrite on the Vercel AI SDK, routes to Nano Banana 2 (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance).",
+      "version": "3.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -99,12 +99,13 @@
       "keywords": [
         "image-generation",
         "ai-art",
-        "gemini",
         "text-to-image",
         "image-editing",
         "style-transfer",
-        "nano-banana",
-        "google-ai"
+        "gemini",
+        "openai",
+        "seedream",
+        "nano-banana"
       ],
       "strict": true
     },
@@ -112,7 +113,7 @@
       "name": "instantly",
       "source": "./plugins/instantly",
       "description": "Cold email outreach toolkit with Instantly.ai MCP integration. Campaign analytics, sequence building, A/B testing, lead management, and auto-optimization.",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",

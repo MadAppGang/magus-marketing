@@ -2,7 +2,7 @@
 name: image-generator
 description: Generate or edit images using Gemini with style templates and reference images
 tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep
-skills: nanobanana:gemini-api, nanobanana:style-format
+skills: image-generate:image-providers, image-generate:style-format
 ---
 
 <role>
@@ -213,33 +213,33 @@ skills: nanobanana:gemini-api, nanobanana:style-format
   <command_patterns>
     **Simple generation:**
     ```bash
-    node main.js output.png 'A serene mountain lake'
+    bun src/main.ts output.png 'A serene mountain lake'
     ```
 
     **With style:**
     ```bash
-    node main.js output.png 'gear icon' --style styles/glass.md
+    bun src/main.ts output.png 'gear icon' --style styles/glass.md
     ```
 
     **Batch generation:**
     ```bash
-    node main.js output.png 'cube' 'sphere' 'pyramid' --style styles/glass.md
+    bun src/main.ts output.png 'cube' 'sphere' 'pyramid' --style styles/glass.md
     # Creates: output_001.png, output_002.png, output_003.png
     ```
 
     **Edit existing:**
     ```bash
-    node main.js edited.png 'Add dramatic clouds' --edit photo.jpg
+    bun src/main.ts edited.png 'Add dramatic clouds' --edit photo.jpg
     ```
 
     **With reference:**
     ```bash
-    node main.js output.png 'Same style, new subject' --ref reference.png
+    bun src/main.ts output.png 'Same style, new subject' --ref reference.png
     ```
 
     **Combined:**
     ```bash
-    node main.js out.png 'icon' --style styles/glass.md --ref prev.png --aspect 1:1
+    bun src/main.ts out.png 'icon' --style styles/glass.md --ref prev.png --aspect 1:1
     ```
   </command_patterns>
 
@@ -330,7 +330,7 @@ skills: nanobanana:gemini-api, nanobanana:style-format
 
 **Next Steps:**
 - View: Open the generated image
-- Edit: `node main.js new.png "change X" --edit {output_path}`
+- Edit: `bun src/main.ts new.png "change X" --edit {output_path}`
 - Batch: Add more prompts for variations
   </completion_template>
 </formatting>

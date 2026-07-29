@@ -301,8 +301,8 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       </objective>
 
       <steps>
-        <step>Read `shared/model-aliases.json` → `teams.review` for default review models, or `shortAliases` for available model aliases.
-          If the file doesn't exist, tell the user to run `/update-models`.
+        <step>Resolve review models via `multimodel:claudish-usage` → Model Alias Resolution (`list_models` for the current set, `search_models` for a specific family).
+          If `list_models` is unavailable, report that the claudish MCP server is not reachable.
         </step>
 
         <step>Load historical performance data (if exists):
@@ -326,10 +326,10 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           Based on historical data (if available) or current offerings:
 
           Options:
-          - (models resolved via shared/model-aliases.json shortAliases)
+          - (models resolved from `list_models` (live catalog))
           - gemini ($ 7.00/1M | Quality: 91%)
           - qwen 🆓 (FREE | Quality: 82%)
-          - mistralai/devstral-2512:free 🆓 (FREE | Dev-focused)
+          - mistralai/LATEST_FREE_CODING_MODEL 🆓 (FREE | Dev-focused)
           - [Custom model ID]
           ```
         </step>
@@ -769,9 +769,9 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       - Show historical performance (if exists)
       - Ask: "Select models" → User selects:
         * claude-embedded (Opus)
-        * (models resolved via shared/model-aliases.json shortAliases)
+        * (models resolved from `list_models` (live catalog))
         * qwen
-        * mistralai/devstral-2512:free
+        * mistralai/LATEST_FREE_CODING_MODEL
       - Calculate costs: $0.002 (3 free models + 1 paid)
       - User approves
 

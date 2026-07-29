@@ -2,7 +2,7 @@
 name: image-style
 description: Manage image generation style templates (create, list, show, delete, update)
 allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
-skills: nanobanana:style-format
+skills: image-generate:style-format
 ---
 
 <role>
@@ -166,7 +166,7 @@ skills: nanobanana:style-format
 
 <examples>
   <example name="Create">
-    <input>/nanobanana:style create glass</input>
+    <input>/image-generate:style create glass</input>
     <flow>
       1. Parse: action=create, name=glass
       2. Check styles/glass.md doesn't exist
@@ -178,7 +178,7 @@ skills: nanobanana:style-format
   </example>
 
   <example name="Delete (with confirmation)">
-    <input>/nanobanana:style delete minimalist</input>
+    <input>/image-generate:style delete minimalist</input>
     <flow>
       1. Parse: action=delete, name=minimalist
       2. Verify styles/minimalist.md exists
@@ -194,7 +194,7 @@ skills: nanobanana:style-format
   </example>
 
   <example name="Delete (cancelled)">
-    <input>/nanobanana:style delete watercolor</input>
+    <input>/image-generate:style delete watercolor</input>
     <flow>
       1. Parse: action=delete, name=watercolor
       2. Verify exists, display contents
@@ -205,7 +205,7 @@ skills: nanobanana:style-format
   </example>
 
   <example name="List">
-    <input>/nanobanana:style list</input>
+    <input>/image-generate:style list</input>
     <flow>
       1. Parse: action=list
       2. Task style-manager: List styles

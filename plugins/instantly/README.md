@@ -220,7 +220,7 @@ This plugin supports PROXY_MODE for external AI model validation via Claudish CL
 
 Example:
 ```
-PROXY_MODE: grok (resolved from shared/model-aliases.json)
+PROXY_MODE: grok (resolved from the live catalog (list_models))
 
 Analyze my "SaaS Founders Q1" campaign performance
 ```

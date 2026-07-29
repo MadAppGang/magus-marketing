@@ -245,8 +245,8 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       <objective>Select AI models for content generation and approve costs</objective>
 
       <steps>
-        <step>Read `shared/model-aliases.json` → `teams.review` for default review models, or `shortAliases` for available model aliases.
-          If the file doesn't exist, tell the user to run `/update-models`.
+        <step>Resolve review models via `multimodel:claudish-usage` → Model Alias Resolution (`list_models` for the current set, `search_models` for a specific family).
+          If `list_models` is unavailable, report that the claudish MCP server is not reachable.
         </step>
 
         <step>Load historical performance for content generation (if exists):
@@ -265,7 +265,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
           Top Performers for Content:
           - claude-embedded (Sonnet) - FREE, excellent quality
-          - (models resolved via shared/model-aliases.json shortAliases)
+          - (models resolved from `list_models` (live catalog))
           - gemini - $7.00/1M, polished output
           - qwen 🆓 - FREE, technical focus
           - opus - $15/1M, premium quality

@@ -2,7 +2,7 @@
 name: image-edit
 description: Edit existing images with natural language instructions
 allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
-skills: nanobanana:gemini-api
+skills: image-generate:image-providers
 ---
 
 <role>
@@ -61,7 +61,7 @@ skills: nanobanana:gemini-api
       <objective>Execute image edit</objective>
       <steps>
         <step>Task image-generator with edit command:
-          node main.js output.png "instruction" --edit source.jpg
+          bun src/main.ts output.png "instruction" --edit source.jpg
         </step>
       </steps>
       <quality_gate>
@@ -96,22 +96,22 @@ skills: nanobanana:gemini-api
 
 <examples>
   <example name="Simple Edit">
-    <input>/nanobanana:edit photo.jpg "Add sunset colors to the sky"</input>
+    <input>/image-generate:edit photo.jpg "Add sunset colors to the sky"</input>
     <flow>
       1. Parse: source=photo.jpg, instruction="Add sunset colors to the sky"
       2. Validate: instruction non-empty, sanitize
       3. Verify photo.jpg exists
       4. Output: photo_edited.png
-      5. Command: node main.js photo_edited.png "Add sunset..." --edit photo.jpg
+      5. Command: bun src/main.ts photo_edited.png "Add sunset..." --edit photo.jpg
     </flow>
   </example>
 
   <example name="With Reference">
-    <input>/nanobanana:edit logo.png "Make it look like this style" --ref style.png</input>
+    <input>/image-generate:edit logo.png "Make it look like this style" --ref style.png</input>
     <flow>
       1. Parse: source=logo.png, instruction, ref=style.png
       2. Verify both files exist
-      3. Command: node main.js logo_edited.png "..." --edit logo.png --ref style.png
+      3. Command: bun src/main.ts logo_edited.png "..." --edit logo.png --ref style.png
     </flow>
   </example>
 </examples>

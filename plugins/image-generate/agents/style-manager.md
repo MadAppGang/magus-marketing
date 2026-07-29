@@ -2,7 +2,7 @@
 name: style-manager
 description: Manage image generation style templates (create, update, list, show, delete)
 tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
-skills: nanobanana:style-format
+skills: image-generate:style-format
 ---
 
 <role>
@@ -246,7 +246,7 @@ skills: nanobanana:style-format
 **Path:** styles/{style_name}.md
 
 **Next Steps:**
-- Generate: `node main.js out.png "prompt" --style styles/{style_name}.md`
+- Generate: `bun src/main.ts out.png "prompt" --style styles/{style_name}.md`
 - View: Read the style file to see contents
 - Edit: Update the style with more details
   </completion_template>
