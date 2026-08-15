@@ -1,6 +1,4 @@
 ---
-plugin: seo
-updated: 2026-01-20
 name: content-optimizer
 description: On-page SEO optimization techniques including keyword density, meta tags, heading structure, and readability. Use when optimizing existing content or validating new content against SEO requirements.
 user-invocable: false

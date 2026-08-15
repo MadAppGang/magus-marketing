@@ -1,6 +1,6 @@
 {
   "name": "seo",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
   "author": {
     "name": "Jack Rudenko",
@@ -23,7 +23,7 @@
   "dependencies": [
     {
       "name": "claudish",
-      "version": "~1.0"
+      "version": "^1.0"
     }
   ],
   "agents": [
@@ -55,8 +55,8 @@
     "./skills/analytics-interpretation",
     "./skills/performance-correlation",
     "./skills/data-extraction-patterns",
-    "./skills/quality-gate.md",
-    "./skills/autonomous-keyword-research.md"
+    "./skills/quality-gate",
+    "./skills/autonomous-keyword-research"
   ],
   "hooks": "./hooks/hooks.json",
   "mcpServers": "./mcp-servers/mcp-config.json"

@@ -47,7 +47,7 @@
       "name": "seo",
       "source": "./plugins/seo",
       "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
-      "version": "1.8.1",
+      "version": "1.8.2",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -67,6 +67,11 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "1.8.2",
+          "date": "2026-08-15",
+          "summary": "Same widening, on claudish"
+        },
         {
           "version": "1.8.1",
           "date": "2026-07-29",

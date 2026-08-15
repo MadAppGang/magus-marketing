@@ -1,9 +1,7 @@
 ---
 name: autonomous-keyword-research
-description: Use when running fully autonomous keyword research workflows with discovery, expansion, clustering, and prioritization phases. Operates with ~80% autonomy using AUTO GATEs and self-correction loops.
-keywords: [autonomous-keyword-research, keyword-discovery, keyword-expansion, keyword-clustering, topic-clusters, serp-analysis, auto-gate, self-correction, retry-protocol]
-plugin: seo
-updated: 2026-01-20
+description: Runs keyword research end to end — discovery, expansion, clustering, prioritization — with AUTO GATEs and self-correction. Use when the user wants autonomous keyword research.
+disable-model-invocation: true
 ---
 
 # Autonomous Keyword Research Skill

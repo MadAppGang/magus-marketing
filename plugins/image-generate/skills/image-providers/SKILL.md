@@ -2,8 +2,6 @@
 name: image-providers
 description: Reference for generating images across Google, OpenAI and ByteDance through one CLI. Use when generating or editing images, picking an image model, or resolving image API key and provider errors.
 user-invocable: false
-plugin: image-generate
-updated: 2026-07-28
 ---
 
 # Image Providers Reference

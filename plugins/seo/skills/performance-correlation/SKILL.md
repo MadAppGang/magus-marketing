@@ -1,6 +1,4 @@
 ---
-plugin: seo
-updated: 2026-01-20
 name: performance-correlation
 description: Correlate content attributes with GA4 and GSC metrics to identify performance drivers
 user-invocable: false

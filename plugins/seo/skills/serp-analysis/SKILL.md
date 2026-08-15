@@ -1,6 +1,4 @@
 ---
-plugin: seo
-updated: 2026-01-20
 name: serp-analysis
 description: SERP analysis techniques for intent classification, feature identification, and competitive intelligence. Use when analyzing search results for content strategy.
 user-invocable: false

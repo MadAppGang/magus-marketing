@@ -1,6 +1,6 @@
 ---
 name: final-cut-pro
-description: Apple Final Cut Pro FCPXML format reference. Covers project structure, timeline creation, clip references, effects, and transitions. Use when generating FCP projects or understanding FCPXML structure.
+description: Final Cut Pro FCPXML reference — project structure, timelines, clip references, effects, transitions. Use when generating or reading FCP projects.
 user-invocable: false
 ---
 plugin: video-editing

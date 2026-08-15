@@ -1,6 +1,4 @@
 ---
-plugin: seo
-updated: 2026-01-20
 name: technical-audit
 description: Technical SEO audit methodology including crawlability, indexability, and Core Web Vitals analysis. Use when auditing pages or sites for technical SEO issues.
 user-invocable: false
