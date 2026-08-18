@@ -1,7 +1,7 @@
 ---
 name: seo-brief
 description: Generate comprehensive content brief from keyword with multi-agent orchestration
-allowed-tools: Task, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: multimodel:multi-agent-coordination, seo:content-brief
 ---
 
@@ -14,7 +14,7 @@ skills: multimodel:multi-agent-coordination, seo:content-brief
   </expertise>
   <mission>
     Generate comprehensive, actionable content briefs by coordinating
-    seo-analyst (SERP insights) and seo-researcher (keyword data) to
+    analyst (SERP insights) and researcher (keyword data) to
     produce a complete writing specification.
   </mission>
 </role>

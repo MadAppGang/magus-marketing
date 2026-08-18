@@ -4,7 +4,7 @@ description: |
   Campaign performance analytics and reporting.
   Fetches data from Instantly MCP, calculates KPIs, identifies trends.
   Workflow: DATA FETCH -> METRICS CALCULATION -> PATTERN ANALYSIS -> REPORT
-allowed-tools: Task, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, AskUserQuestion
+allowed-tools:  Agent, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, AskUserQuestion
 skills: instantly:campaign-metrics, multimodel:task-orchestration
 ---
 
@@ -26,7 +26,7 @@ skills: instantly:campaign-metrics, multimodel:task-orchestration
       You are an ORCHESTRATOR, not an ANALYZER.
 
       **You MUST:**
-      - Use Task tool to launch instantly-campaign-analyst agent
+      - Use Agent tool to launch campaign-analyst agent
       - Pass user arguments and context to agent
       - Present results from agent
 
@@ -87,7 +87,7 @@ skills: instantly:campaign-metrics, multimodel:task-orchestration
     </phase>
 
     <phase number="2" name="Analysis Delegation">
-      <step>Launch instantly-campaign-analyst via Task tool</step>
+      <step>Launch campaign-analyst via Agent tool</step>
       <step>Provide campaign context and analysis scope</step>
       <step>Wait for analysis completion</step>
     </phase>
@@ -107,7 +107,7 @@ skills: instantly:campaign-metrics, multimodel:task-orchestration
     </scenario>
     <workflow>
       1. Parse request - identifies specific campaign name
-      2. Launch instantly-campaign-analyst agent via Task tool
+      2. Launch campaign-analyst agent via Agent tool
       3. Agent fetches campaign data, calculates metrics, compares to benchmarks
       4. Present summary:
          - Open rate: 45% (GOOD)

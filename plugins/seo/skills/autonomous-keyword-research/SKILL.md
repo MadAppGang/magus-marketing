@@ -25,7 +25,7 @@ to recover from failures.
 
 ## Workflow Phases
 
-### Phase 1: DISCOVERY (seo-analyst)
+### Phase 1: DISCOVERY (analyst)
 
 **Objective**: Identify initial keyword opportunities from seed keyword
 
@@ -55,7 +55,7 @@ discovery_gate:
 
 ---
 
-### Phase 2: EXPANSION (seo-researcher)
+### Phase 2: EXPANSION (researcher)
 
 **Objective**: Expand initial keywords to 75+ terms using systematic patterns
 
@@ -88,7 +88,7 @@ expansion_gate:
 
 ---
 
-### Phase 3: CLUSTERING (seo-researcher)
+### Phase 3: CLUSTERING (researcher)
 
 **Objective**: Organize keywords into semantic topic clusters
 
@@ -118,7 +118,7 @@ clustering_gate:
 
 ---
 
-### Phase 4: PRIORITIZATION (seo-analyst + seo-researcher)
+### Phase 4: PRIORITIZATION (analyst + researcher)
 
 **Objective**: Score and rank keywords by opportunity
 

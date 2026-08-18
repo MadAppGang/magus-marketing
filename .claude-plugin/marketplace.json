@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "Marketing and content plugins for Magus \u2014 SEO, cold email outreach, AI image generation, and video editing, plus the claudish runtime they build on. Source of truth: MadAppGang/magus-src. This is a lean dist repo.",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -47,7 +47,7 @@
       "name": "seo",
       "source": "./plugins/seo",
       "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
-      "version": "1.8.2",
+      "version": "2.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -67,6 +67,11 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.0.0",
+          "date": "2026-08-18",
+          "summary": "BREAKING \u2014 five agents lost their plugin-name prefix, so their addresses changed\u2026"
+        },
         {
           "version": "1.8.2",
           "date": "2026-08-15",
@@ -91,7 +96,7 @@
       "name": "video-editing",
       "source": "./plugins/video-editing",
       "description": "Video editing toolkit. Drives FFmpeg for cutting and encoding, Whisper for transcription and subtitles, and Apple Final Cut Pro for project-level work.",
-      "version": "1.1.4",
+      "version": "1.2.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -113,6 +118,11 @@
       "strict": true,
       "releases": [
         {
+          "version": "1.2.0",
+          "date": "2026-08-18",
+          "summary": "Same tool-and-instruction correction across its agents"
+        },
+        {
           "version": "1.1.4",
           "date": "2026-05-07",
           "kinds": [
@@ -126,7 +136,7 @@
       "name": "image-generate",
       "source": "./plugins/image-generate",
       "description": "Provider-agnostic AI image generation and editing. One interface over Nano Banana Pro, 2 and 2 Lite (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance), with per-model sizing and a background advisory when the pinned models go stale.",
-      "version": "3.0.0",
+      "version": "3.1.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -147,6 +157,11 @@
       "strict": true,
       "releases": [
         {
+          "version": "3.1.0",
+          "date": "2026-08-18",
+          "summary": "The style command dispatches its subagent explicitly and passes a CONFIRMED: <op> <path> token,\u2026"
+        },
+        {
           "version": "3.0.0",
           "date": "2026-07-29",
           "kinds": [
@@ -162,7 +177,7 @@
       "name": "instantly",
       "source": "./plugins/instantly",
       "description": "Cold email outreach toolkit built on the Instantly.ai MCP. Campaign analytics, sequence building, A/B testing, lead management and auto-optimisation.",
-      "version": "1.0.7",
+      "version": "2.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -182,6 +197,11 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.0.0",
+          "date": "2026-08-18",
+          "summary": "BREAKING \u2014 three agents lost their plugin-name prefix (instantly:instantly-campaign-analyst \u2192\u2026"
+        },
         {
           "version": "1.0.7",
           "date": "2026-07-29",

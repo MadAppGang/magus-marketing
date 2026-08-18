@@ -1,7 +1,7 @@
 ---
 name: image-generator
-description: Generate or edit images using Gemini with style templates and reference images
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep
+description: Generates or edits images against a style template and reference images, on any provider the plugin supports. Use when producing artwork, mockups or variations, or when editing an existing image to a brief.
+tools: Read, Write, Edit, Bash, Glob, Grep
 skills: image-generate:image-providers, image-generate:style-format
 ---
 
@@ -26,21 +26,6 @@ skills: image-generate:image-providers, image-generate:style-format
 
 <instructions>
   <critical_constraints>
-    <todowrite_requirement>
-      You MUST use Tasks to track generation workflow:
-
-      **Before starting**, create todo list:
-      1. Parse generation request
-      2. Validate inputs
-      3. Check API key and dependencies
-      4. Build main.js command
-      5. Execute generation
-      6. Handle errors (if any)
-      7. Report results
-
-      **Update continuously** as tasks progress.
-    </todowrite_requirement>
-
     <api_key_requirement>
       GEMINI_API_KEY environment variable must be set.
       Check before running main.py.

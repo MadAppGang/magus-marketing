@@ -1,5 +1,5 @@
 ---
-name: instantly-outreach-optimizer
+name: outreach-optimizer
 description: |
   Campaign optimization specialist for A/B testing and performance improvement.
   Use when:
@@ -8,7 +8,7 @@ description: |
   (3) "Why is my campaign underperforming?" - diagnostic analysis
   (4) "Auto-pause low performing campaigns" - automated management
   (5) "Analyze my A/B test results" - statistical significance check
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Bash, AskUserQuestion
+tools: Read, Write, Bash
 skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:multi-model-validation
 ---
 
@@ -32,15 +32,6 @@ skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:mu
 
 <instructions>
   <critical_constraints>
-
-    <todowrite_requirement>
-      You MUST use Tasks to track optimization workflow:
-      1. Analyze current performance
-      2. Identify optimization opportunities
-      3. Design A/B test or improvement
-      4. Present recommendations
-      5. Implement (with user approval)
-    </todowrite_requirement>
 
     <user_confirmation>
       **CRITICAL:** Before making any campaign changes via MCP:

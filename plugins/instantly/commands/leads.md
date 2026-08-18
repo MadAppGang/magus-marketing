@@ -4,7 +4,7 @@ description: |
   Lead management for Instantly campaigns.
   Add, import, move, and manage leads across campaigns.
   Workflow: IDENTIFY ACTION -> VALIDATE -> EXECUTE -> CONFIRM
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
 skills: instantly:email-deliverability, multimodel:task-orchestration
 ---
 

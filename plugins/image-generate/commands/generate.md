@@ -1,7 +1,7 @@
 ---
 name: generate
 description: Generate images from text prompts with optional styles and aspect ratios
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: image-generate:image-providers
 ---
 
@@ -126,7 +126,7 @@ skills: image-generate:image-providers
       1. Parse: prompts=["A serene mountain lake at sunset"]
       2. Validate: prompt non-empty, no special chars
       3. Output: generated/a_serene_mountain.png
-      4. Task image-generator: run main.py
+      4. Dispatch `image-generate:image-generator` (foreground): run main.py
     </flow>
   </example>
 
@@ -136,7 +136,7 @@ skills: image-generate:image-providers
       1. Parse: prompts=["gear icon"], style="glass"
       2. Resolve: styles/glass.md
       3. Validate: file exists, content is safe
-      4. Task image-generator: run main.py --style styles/glass.md
+      4. Dispatch `image-generate:image-generator` (foreground): run main.py --style styles/glass.md
     </flow>
   </example>
 
@@ -146,7 +146,7 @@ skills: image-generate:image-providers
       1. Parse: prompts=["cube", "sphere", "pyramid"]
       2. Validate: all prompts valid, style exists
       3. Output: generated/cube_001.png, etc.
-      4. Task image-generator: batch generation
+      4. Dispatch `image-generate:image-generator` (foreground): batch generation
     </flow>
   </example>
 </examples>

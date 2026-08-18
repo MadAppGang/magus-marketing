@@ -4,7 +4,7 @@ description: |
   Create new cold email sequences for Instantly campaigns.
   Interactive workflow for designing multi-step email sequences.
   Workflow: CONTEXT GATHERING -> SEQUENCE DESIGN -> REVIEW -> CREATE
-allowed-tools: Task, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
 skills: instantly:sequence-best-practices, multimodel:task-orchestration
 ---
 
@@ -27,7 +27,7 @@ skills: instantly:sequence-best-practices, multimodel:task-orchestration
 
       **You MUST:**
       - Gather initial context via AskUserQuestion
-      - Use Task tool to launch instantly-sequence-builder agent
+      - Use Agent tool to launch sequence-builder agent
       - Ensure user reviews and approves before campaign creation
 
       **You MUST NOT:**
@@ -91,7 +91,7 @@ skills: instantly:sequence-best-practices, multimodel:task-orchestration
     </phase>
 
     <phase number="2" name="Sequence Creation">
-      <step>Launch instantly-sequence-builder via Task</step>
+      <step>Launch sequence-builder via Task</step>
       <step>Pass all context to agent</step>
       <step>Wait for sequence design</step>
     </phase>
@@ -116,7 +116,7 @@ skills: instantly:sequence-best-practices, multimodel:task-orchestration
          - Product: Marketing automation SaaS
          - Value prop: Reduce manual work by 40%
          - Desired CTA: Book 15-min demo
-      2. Launch instantly-sequence-builder agent via Task
+      2. Launch sequence-builder agent via Task
       3. Agent designs sequence:
          - Email 1 (Day 0): Problem + value prop
          - Email 2 (Day 3): Case study (similar company results)

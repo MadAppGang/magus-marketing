@@ -1,7 +1,7 @@
 ---
 name: seo
 description: Interactive SEO workflow entry point that routes to appropriate commands or agents
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
 skills: multimodel:task-orchestration
 ---
 
@@ -32,7 +32,7 @@ skills: multimodel:task-orchestration
       **You MUST:**
       - Use AskUserQuestion to understand user goals
       - Route to existing SEO commands (research, brief, optimize, review, alternatives, audit, performance, setup-analytics)
-      - Use Task tool to launch appropriate agents for custom workflows
+      - Use Agent tool to launch appropriate agents for custom workflows
       - Provide helpful context and follow-up suggestions
 
       **You MUST NOT:**
@@ -254,7 +254,7 @@ skills: multimodel:task-orchestration
         **IMPORTANT: Command Routing vs Task Tool**
 
         For "Run it for me" option:
-        - DO NOT use Task tool to run commands (Task is for agents only)
+        - DO NOT use Agent tool to run commands (Task is for agents only)
         - Instead, provide natural language that Claude will understand and route
         - Example: "run seo-research for content marketing" will be routed by Claude to /seo-research
 
@@ -354,11 +354,11 @@ skills: multimodel:task-orchestration
 
     | Agent | Role | Use When |
     |-------|------|----------|
-    | seo-analyst | SERP analysis, intent classification | Need competitive/SERP insights |
-    | seo-researcher | Keyword expansion, clustering | Need comprehensive keyword data |
-    | seo-writer | Content creation | Need content drafted |
-    | seo-editor | E-E-A-T quality gating | Need content reviewed |
-    | seo-data-analyst | Analytics interpretation | Need GA4/GSC data analyzed |
+    | analyst | SERP analysis, intent classification | Need competitive/SERP insights |
+    | researcher | Keyword expansion, clustering | Need comprehensive keyword data |
+    | writer | Content creation | Need content drafted |
+    | editor | E-E-A-T quality gating | Need content reviewed |
+    | data-analyst | Analytics interpretation | Need GA4/GSC data analyzed |
   </agent_reference>
 
   <common_workflows>

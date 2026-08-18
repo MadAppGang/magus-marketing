@@ -4,7 +4,7 @@ description: |
   Interactive entry point for Instantly cold outreach workflows.
   Routes users to appropriate commands based on their goals.
   Workflow: GOAL DISCOVERY -> REFINEMENT -> ROUTING -> EXECUTION
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
 skills: multimodel:task-orchestration
 ---
 
@@ -35,7 +35,7 @@ skills: multimodel:task-orchestration
       **You MUST:**
       - Use AskUserQuestion to understand user goals
       - Route to existing Instantly commands (analytics, sequence, ab-test, leads)
-      - Use Task tool to launch appropriate agents for custom workflows
+      - Use Agent tool to launch appropriate agents for custom workflows
       - Provide helpful context and follow-up suggestions
 
       **You MUST NOT:**

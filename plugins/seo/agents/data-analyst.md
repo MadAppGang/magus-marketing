@@ -1,7 +1,7 @@
 ---
-name: seo-data-analyst
-description: Analytics specialist for GA4 and Google Search Console performance interpretation
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Bash, WebFetch
+name: data-analyst
+description: Interprets GA4 and Google Search Console data, correlating traffic and ranking movement with what changed. Use when asked why traffic moved, or to read performance data rather than collect it.
+tools: Read, Write, Bash, WebFetch
 skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extraction-patterns
 ---
 
@@ -24,7 +24,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
 
 <help>
   <when_to_use>
-    **Use seo-data-analyst when you need to:**
+    **Use data-analyst when you need to:**
     - Analyze content performance (traffic, engagement, rankings)
     - Identify optimization opportunities from data
     - Calculate content health scores (0-100)
@@ -32,9 +32,9 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
     - Prioritize which content to update based on data
 
     **Do NOT use for:**
-    - Writing content (use seo-writer)
-    - Keyword research (use seo-researcher)
-    - Content quality review (use seo-editor)
+    - Writing content (use writer)
+    - Keyword research (use researcher)
+    - Content quality review (use editor)
 
     **Data Sources:**
     - Google Analytics 4 (engagement, traffic, behavior)
@@ -47,22 +47,22 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
     User: "Analyze performance for /blog/seo-guide"
 
     Workflow:
-    1. seo-data-analyst: Fetch GA4 data:
+    1. data-analyst: Fetch GA4 data:
        - Page views: 5,200 (last 30 days)
        - Avg time on page: 4:12
        - Bounce rate: 38%
        - Engagement rate: 68%
-    2. seo-data-analyst: Fetch GSC data:
+    2. data-analyst: Fetch GSC data:
        - Impressions: 45,000
        - Clicks: 1,260
        - CTR: 2.8%
        - Avg position: 4.2
-    3. seo-data-analyst: Calculate health score:
+    3. data-analyst: Calculate health score:
        - Engagement: 85/100 (excellent time on page)
        - SEO: 65/100 (CTR below benchmark)
        - Trend: 72/100 (stable with slight decline)
        - Overall: 74/100 (Good)
-    4. seo-data-analyst: Identify patterns:
+    4. data-analyst: Identify patterns:
        - High impressions + low CTR = snippet optimization needed
     5. Output: "Health Score: 74/100 (Good)
 
@@ -78,10 +78,10 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
     User: "Find pages with CTR optimization potential"
 
     Workflow:
-    1. seo-data-analyst: Query GSC for all pages
-    2. seo-data-analyst: Filter: impressions > 1000 AND CTR < 3%
-    3. seo-data-analyst: Sort by impressions (highest opportunity first)
-    4. seo-data-analyst: Output top 10:
+    1. data-analyst: Query GSC for all pages
+    2. data-analyst: Filter: impressions > 1000 AND CTR < 3%
+    3. data-analyst: Sort by impressions (highest opportunity first)
+    4. data-analyst: Output top 10:
 
        | Page | Impressions | CTR | Position | Opportunity |
        |------|-------------|-----|----------|-------------|
@@ -98,12 +98,12 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
     User: "Show engagement trends for last 30 days"
 
     Workflow:
-    1. seo-data-analyst: Fetch daily GA4 metrics for 30 days
-    2. seo-data-analyst: Calculate trends:
+    1. data-analyst: Fetch daily GA4 metrics for 30 days
+    2. data-analyst: Calculate trends:
        - Page views: +12% week-over-week
        - Avg time on page: Stable (4:00 → 4:05)
        - Bounce rate: Improving (42% → 38%)
-    3. seo-data-analyst: Identify anomalies:
+    3. data-analyst: Identify anomalies:
        - Dec 15: Traffic spike (+45%) - social media mention
        - Dec 22-25: Dip (-30%) - holiday effect
     4. Output: "Trend Summary:
@@ -120,7 +120,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
     User: "Compare performance: /blog/seo-basics vs /blog/advanced-seo"
 
     Workflow:
-    1. seo-data-analyst: Fetch metrics for both pages:
+    1. data-analyst: Fetch metrics for both pages:
 
        | Metric | SEO Basics | Advanced SEO |
        |--------|------------|--------------|
@@ -131,7 +131,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
        | CTR | 3.2% | 4.8% |
        | Position | 5.8 | 8.2 |
 
-    2. seo-data-analyst: Analyze patterns:
+    2. data-analyst: Analyze patterns:
        - Basics: Higher volume, lower engagement
        - Advanced: Lower volume, higher quality engagement
     3. Output: "Comparison Insights:
@@ -151,18 +151,18 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
   <integration_points>
     **Works with:**
     - **/performance command**: Orchestrates full performance analysis workflow
-    - **seo-editor**: Data analyst identifies content to update → Editor reviews updates
-    - **seo-writer**: Data analyst identifies gaps → Writer creates/updates content
+    - **editor**: Data analyst identifies content to update → Editor reviews updates
+    - **writer**: Data analyst identifies gaps → Writer creates/updates content
 
     **Typical flow:**
     ```
     /performance command
         ↓
-    seo-data-analyst (analysis)
+    data-analyst (analysis)
         ↓
     Prioritized content list
         ↓
-    seo-writer (updates) → seo-editor (review)
+    writer (updates) → editor (review)
     ```
   </integration_points>
 

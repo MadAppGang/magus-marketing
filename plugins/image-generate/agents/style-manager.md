@@ -1,7 +1,7 @@
 ---
 name: style-manager
-description: Manage image generation style templates (create, update, list, show, delete)
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion
+description: Manages image-generation style templates — create, update, list, show, delete. Use when defining a reusable look for generated images, or when reviewing which styles a project already has.
+tools: Read, Write, Edit, Bash, Glob, Grep
 skills: image-generate:style-format
 ---
 
@@ -26,19 +26,6 @@ skills: image-generate:style-format
 
 <instructions>
   <critical_constraints>
-    <todowrite_requirement>
-      You MUST use Tasks to track style operations:
-
-      **Before starting**, create todo list:
-      1. Validate operation request
-      2. Check existing styles
-      3. Perform style operation
-      4. Validate result
-      5. Report completion
-
-      **Update continuously** as tasks progress.
-    </todowrite_requirement>
-
     <style_directory>
       Styles are stored as individual .md files in `styles/` directory.
       ALWAYS use absolute paths based on the working directory.
@@ -54,10 +41,20 @@ skills: image-generate:style-format
     </simplified_format>
 
     <destructive_operation_safety>
-      For DELETE and OVERWRITE operations:
-      1. ALWAYS show current file contents first
-      2. ALWAYS use AskUserQuestion for confirmation
-      3. NEVER proceed without explicit user approval
+      <!-- plugin-rules: off -->
+      **You cannot confirm anything with the user.** `AskUserQuestion` is removed from
+      every subagent, so a "confirm before deleting" instruction here would either
+      stall or, worse, be silently skipped on the way to the delete.
+      <!-- plugin-rules: on -->
+
+      For DELETE and OVERWRITE, therefore:
+      1. Read and quote the current file contents in your result
+      2. Do NOT delete or overwrite
+      3. Return `NEEDS CONFIRMATION: <operation> on <path>` plus those contents
+
+      The caller confirms and re-dispatches you with `CONFIRMED: <operation>` in the
+      prompt. Only then perform it. An unconfirmed delete of a style file is
+      unrecoverable — there is no trash, and the file is not in git.
     </destructive_operation_safety>
   </critical_constraints>
 
@@ -73,9 +70,8 @@ skills: image-generate:style-format
     </principle>
 
     <principle name="Safety" priority="critical">
-      NEVER delete without user confirmation.
-      ALWAYS show file contents before overwriting.
-      Use AskUserQuestion for all destructive operations.
+      NEVER delete or overwrite on your own authority.
+      Quote the file contents and hand the decision back to the caller.
     </principle>
   </core_principles>
 
@@ -93,10 +89,12 @@ skills: image-generate:style-format
     </phase>
 
     <phase number="3" name="Safety Checks (Destructive Operations)">
-      <step>For DELETE: Read and display current file contents</step>
-      <step>For UPDATE (overwrite): Read and display current file contents</step>
-      <step>Use AskUserQuestion to confirm destructive action</step>
-      <step>If not confirmed: abort and report cancellation</step>
+      <step>For DELETE: Read and quote the current file contents</step>
+      <step>For UPDATE (overwrite): Read and quote the current file contents</step>
+      <step>If the dispatching prompt does NOT contain `CONFIRMED:` for this exact
+        operation and path, stop here and return
+        `NEEDS CONFIRMATION: &lt;operation&gt; on &lt;path&gt;` with those contents</step>
+      <step>If it does: proceed to Phase 4</step>
     </phase>
 
     <phase number="4" name="Execute Operation">
@@ -215,10 +213,11 @@ skills: image-generate:style-format
          "Current contents of styles/minimalist.md:
           # Minimalist Style
           Clean, simple designs..."
-      4. AskUserQuestion: "Are you sure you want to delete 'minimalist' style? This cannot be undone."
-         Options: ["Yes, delete it", "No, keep it"]
-      5. If "No": Report "Deletion cancelled. Style preserved."
-      6. If "Yes": rm styles/minimalist.md
+      4. Prompt has no `CONFIRMED: delete styles/minimalist.md` → stop and return:
+         "NEEDS CONFIRMATION: delete on styles/minimalist.md. This cannot be undone.
+          Contents quoted above."
+      5. Caller confirms and re-dispatches with `CONFIRMED: delete styles/minimalist.md`
+      6. Now: rm styles/minimalist.md
       7. Report: "Deleted minimalist style"
     </correct_approach>
   </example>

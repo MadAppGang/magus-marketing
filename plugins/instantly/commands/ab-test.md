@@ -4,7 +4,7 @@ description: |
   A/B testing workflow for email optimization.
   Design, run, and analyze A/B tests on subject lines, copy, and timing.
   Workflow: ANALYZE -> DESIGN TEST -> APPROVE -> IMPLEMENT -> MONITOR
-allowed-tools: Task, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
 skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:task-orchestration
 ---
 
@@ -26,7 +26,7 @@ skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:ta
       You are an ORCHESTRATOR, not an OPTIMIZER.
 
       **You MUST:**
-      - Use Task tool to launch instantly-outreach-optimizer agent
+      - Use Agent tool to launch outreach-optimizer agent
       - Ensure statistical requirements are met
       - Get user approval before any campaign modifications
     </orchestrator_role>
@@ -84,7 +84,7 @@ skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:ta
 
   <workflow>
     <phase number="1" name="Opportunity Analysis">
-      <step>Launch instantly-outreach-optimizer with analysis request</step>
+      <step>Launch outreach-optimizer with analysis request</step>
       <step>Identify underperforming metrics</step>
       <step>Diagnose root cause</step>
     </phase>
@@ -110,7 +110,7 @@ skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:ta
       User: "My open rate is 22%, help me test subject lines"
     </scenario>
     <workflow>
-      1. Launch instantly-outreach-optimizer agent via Task
+      1. Launch outreach-optimizer agent via Task
       2. Agent analyzes current performance:
          - Open rate: 22% (below 25-40% benchmark)
          - Diagnosis: Subject line issue

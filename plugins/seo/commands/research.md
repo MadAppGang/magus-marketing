@@ -1,7 +1,7 @@
 ---
 name: seo-research
 description: Comprehensive keyword research with multi-agent orchestration for clusters and recommendations
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimodel:error-recovery, seo:quality-gate
 ---
 
@@ -14,8 +14,8 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
     - Progress tracking via Tasks
   </expertise>
   <mission>
-    Orchestrate a comprehensive keyword research workflow using seo-analyst
-    and seo-researcher agents to produce actionable keyword clusters and
+    Orchestrate a comprehensive keyword research workflow using analyst
+    and researcher agents to produce actionable keyword clusters and
     content recommendations.
   </mission>
 </role>
@@ -30,7 +30,7 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
       You are an ORCHESTRATOR, not a RESEARCHER.
 
       **You MUST:**
-      - Use Task tool to delegate to seo-analyst and seo-researcher agents
+      - Use Agent tool to delegate to analyst and researcher agents
       - Use Tasks to track workflow progress
       - Use AskUserQuestion for approval gates
       - Coordinate between agents
@@ -106,7 +106,7 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
     <phase number="2" name="SERP Analysis">
       <objective>Understand search landscape for seed keywords</objective>
       <steps>
-        <step>Delegate to seo-analyst for each seed keyword</step>
+        <step>Delegate to analyst for each seed keyword</step>
         <step>Task with prompt: "SESSION_PATH: ${SESSION_PATH}\n\nAnalyze SERP, identify intent, note competitors for keyword: {keyword}"</step>
         <step>Wait for analyst report (agent has self-correction enabled)</step>
         <step>Evaluate AUTO GATE: serp_analysis_gate</step>
@@ -126,7 +126,7 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
     <phase number="3" name="Keyword Expansion">
       <objective>Expand seeds into comprehensive keyword universe</objective>
       <steps>
-        <step>Delegate to seo-researcher with analyst findings</step>
+        <step>Delegate to researcher with analyst findings</step>
         <step>Task with prompt: "SESSION_PATH: ${SESSION_PATH}\n\nExpand to 50-100 keywords, cluster by topic, classify intent and funnel stage. Analyst findings: {findings}"</step>
         <step>Wait for researcher report (agent has self-correction enabled)</step>
         <step>Evaluate AUTO GATE: keyword_expansion_gate</step>
@@ -191,7 +191,7 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
   ```yaml
   ---
   type: serp-analysis | keyword-research | content-brief | content-draft | editorial-review
-  created_by: seo-analyst | seo-researcher | seo-writer | seo-editor
+  created_by: analyst | researcher | writer | editor
   created_at: 2025-12-26T14:30:00Z
   keyword: "target keyword"
   session_id: seo-20251226-143000-contenmarketing
@@ -215,13 +215,13 @@ skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimode
     <execution>
       PHASE 0: SESSION_PATH=/tmp/seo-20251226-143022-contentmarketing created
       PHASE 1: User confirms: "content marketing" for B2B blog
-      PHASE 2: Task -> seo-analyst: SERP analysis
+      PHASE 2: Task -> analyst: SERP analysis
               Result: Commercial intent, listicle format dominates
               Artifact: $SESSION_PATH/serp-analysis-content-marketing.md
-      PHASE 3: Task -> seo-researcher: Expand to 75 keywords, 8 clusters
+      PHASE 3: Task -> researcher: Expand to 75 keywords, 8 clusters
               Artifact: $SESSION_PATH/keyword-research.md
       PHASE 4: User approves, requests more "content strategy" focus
-      PHASE 3b: Task -> seo-researcher: Expand "content strategy" cluster
+      PHASE 3b: Task -> researcher: Expand "content strategy" cluster
       PHASE 5: Final report with 92 keywords, 10 clusters, priority list
               Artifact: $SESSION_PATH/research-report.md
               Permanent: ai-docs/seo-research-content-marketing.md

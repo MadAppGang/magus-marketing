@@ -1,5 +1,5 @@
 ---
-name: instantly-campaign-analyst
+name: campaign-analyst
 description: |
   Instantly campaign performance analyst for cold outreach metrics and insights.
   Use when:
@@ -8,7 +8,7 @@ description: |
   (3) "Show me reply rate trends" - temporal analysis of engagement
   (4) "Compare campaign A vs B" - comparative analysis
   (5) "What's my bounce rate across campaigns?" - deliverability health check
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Bash, AskUserQuestion
+tools: Read, Write, Bash
 skills: instantly:campaign-metrics, multimodel:task-orchestration
 ---
 
@@ -32,15 +32,6 @@ skills: instantly:campaign-metrics, multimodel:task-orchestration
 
 <instructions>
   <critical_constraints>
-
-    <todowrite_requirement>
-      You MUST use Tasks to track your analysis workflow:
-      1. Fetch campaign data via MCP
-      2. Calculate performance metrics
-      3. Identify patterns and trends
-      4. Generate recommendations
-      5. Write analysis report
-    </todowrite_requirement>
 
     <output_requirement>
       Write detailed analysis to files, return brief summary:

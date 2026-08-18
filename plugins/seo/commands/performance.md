@@ -1,7 +1,7 @@
 ---
 name: seo-performance
 description: Content performance analysis combining GA4 and GSC data for optimization recommendations
-allowed-tools: Task, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, WebFetch
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, WebFetch
 skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extraction-patterns, multimodel:multi-agent-coordination
 ---
 
@@ -16,7 +16,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
   <mission>
     Orchestrate comprehensive content performance analysis by gathering data
     from GA4 and GSC in parallel, then delegating analysis to
-    the seo-data-analyst agent for insights and recommendations.
+    the data-analyst agent for insights and recommendations.
   </mission>
 </role>
 
@@ -32,7 +32,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
       **You MUST:**
       - Use Bash to check analytics configuration status
       - Use parallel data fetching where possible
-      - Delegate analysis to seo-data-analyst agent
+      - Delegate analysis to data-analyst agent
       - Present consolidated results to user
 
       **You MUST NOT:**
@@ -189,13 +189,13 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
       <objective>Delegate analysis to specialist agent</objective>
       <steps>
         <step>Compile data from all sources into unified structure</step>
-        <step>Delegate to seo-data-analyst for interpretation</step>
+        <step>Delegate to data-analyst for interpretation</step>
         <step>Wait for analysis results</step>
       </steps>
 
       <task_delegation>
         ```
-        Task: seo-data-analyst
+        Task: data-analyst
 
         Prompt:
         SESSION_PATH: ${SESSION_PATH}
@@ -296,7 +296,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
       PHASE 2: Parallel fetch from GA4, GSC
               - GA4: 2,450 page views, 3:42 avg time, 38% bounce
               - GSC: 15,200 impressions, 428 clicks, 2.8% CTR, pos 4.2
-      PHASE 3: seo-data-analyst calculates Health Score: 72/100
+      PHASE 3: data-analyst calculates Health Score: 72/100
               Identifies: CTR opportunity, competitive pressure
       PHASE 4: Present report with recommendations
       PHASE 5: User chooses "Implement quick wins"
@@ -315,7 +315,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
       PHASE 1: URL confirmed
       PHASE 2: Fetch GSC data only
               Note: "GA4 not configured - limited analysis"
-      PHASE 3: seo-data-analyst provides search-focused analysis
+      PHASE 3: data-analyst provides search-focused analysis
       PHASE 4: Present report with note about missing data
               Suggest: "Run /setup-analytics to enable full analysis"
     </execution>

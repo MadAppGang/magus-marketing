@@ -92,9 +92,9 @@ Interactive menu to guide you to the right workflow.
 
 | Agent | Purpose | Use When |
 |-------|---------|----------|
-| `instantly-campaign-analyst` | Performance analysis | "Analyze my campaign performance" |
-| `instantly-sequence-builder` | Email sequence design | "Create a 5-step email sequence" |
-| `instantly-outreach-optimizer` | A/B testing & optimization | "Optimize my campaign for better replies" |
+| `campaign-analyst` | Performance analysis | "Analyze my campaign performance" |
+| `sequence-builder` | Email sequence design | "Create a 5-step email sequence" |
+| `outreach-optimizer` | A/B testing & optimization | "Optimize my campaign for better replies" |
 
 ## Skills
 

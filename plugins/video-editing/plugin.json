@@ -1,6 +1,6 @@
 {
   "name": "video-editing",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Video editing toolkit. Drives FFmpeg for cutting and encoding, Whisper for transcription and subtitles, and Apple Final Cut Pro for project-level work.",
   "author": {
     "name": "Jack Rudenko",

@@ -27,11 +27,11 @@ Comprehensive SEO toolkit with keyword research, content optimization, technical
 +-------------------------------------------------------------+
 |                                                             |
 |  COMMANDS (8)                    AGENTS (5)                 |
-|  +-- /research                  +-- seo-analyst (Sonnet)    |
-|  +-- /optimize                  +-- seo-researcher (Sonnet) |
-|  +-- /brief                     +-- seo-writer (Sonnet)     |
-|  +-- /audit                     +-- seo-editor (Opus)       |
-|  +-- /review                    +-- seo-data-analyst (Sonnet)|
+|  +-- /research                  +-- analyst (Sonnet)    |
+|  +-- /optimize                  +-- researcher (Sonnet) |
+|  +-- /brief                     +-- writer (Sonnet)     |
+|  +-- /audit                     +-- editor (Opus)       |
+|  +-- /review                    +-- data-analyst (Sonnet)|
 |  +-- /alternatives                                          |
 |  +-- /performance               ANALYTICS INTEGRATIONS      |
 |  +-- /setup-analytics           +-- Google Analytics 4      |
@@ -367,7 +367,7 @@ Artifacts:
 
 ## E-E-A-T Scoring
 
-The seo-editor agent uses a quantified E-E-A-T rubric (0-100 scale):
+The editor agent uses a quantified E-E-A-T rubric (0-100 scale):
 
 | Factor | Weight | Score Range | Signals |
 |--------|--------|-------------|---------|
@@ -388,7 +388,7 @@ The seo-editor agent uses a quantified E-E-A-T rubric (0-100 scale):
 2. **Follow the Pipeline** - ANALYST → RESEARCHER → WRITER → EDITOR
 3. **Use Session Artifacts** - Review intermediate outputs for quality
 4. **Copy Final Reports** - Move session artifacts to permanent storage
-5. **Validate E-E-A-T** - Let seo-editor review before publishing
+5. **Validate E-E-A-T** - Let editor review before publishing
 6. **Test Technical SEO** - Run `/seo-audit` before going live
 
 ## Troubleshooting

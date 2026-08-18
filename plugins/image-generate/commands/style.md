@@ -1,7 +1,7 @@
 ---
 name: image-style
 description: Manage image generation style templates (create, list, show, delete, update)
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: image-generate:style-format
 ---
 
@@ -131,17 +131,17 @@ skills: image-generate:style-format
     1. Check if style exists
     2. If exists: Ask to overwrite (confirmation flow)
     3. Ask: "Describe the visual style for '{name}'"
-    4. Task style-manager: Create styles/{name}.md with description
+    4. Dispatch `image-generate:style-manager` (foreground): Create styles/{name}.md with description
   </handler>
 
   <handler action="list">
-    1. Task style-manager: List all styles/*.md
+    1. Dispatch `image-generate:style-manager` (foreground): List all styles/*.md
     2. Present formatted list
   </handler>
 
   <handler action="show">
     1. Verify style exists
-    2. Task style-manager: Display styles/{name}.md contents
+    2. Dispatch `image-generate:style-manager` (foreground): Display styles/{name}.md contents
   </handler>
 
   <handler action="delete">
@@ -150,7 +150,8 @@ skills: image-generate:style-format
     3. AskUserQuestion: "Are you sure you want to delete '{name}'? This cannot be undone."
        Options: ["Yes, delete it", "No, keep it"]
     4. If "No": Report cancellation
-    5. If "Yes": Task style-manager: Delete
+    5. If "Yes": dispatch with the confirmation token (see below):
+       `CONFIRMED: delete styles/{name}.md`
   </handler>
 
   <handler action="update">
@@ -160,9 +161,35 @@ skills: image-generate:style-format
        Options: ["Yes, overwrite", "No, cancel"]
     4. If "No": Report cancellation
     5. If "Yes": Ask for new description
-    6. Task style-manager: Update with new content
+    6. Dispatch with `CONFIRMED: overwrite styles/{name}.md` plus the new content
   </handler>
 </action_handlers>
+
+<dispatch_contract>
+  **You own the confirmation; the agent cannot.** `AskUserQuestion` exists at command
+  level and is stripped from every subagent, so `image-generate:style-manager` refuses
+  any destructive operation unless the prompt carries an exact token:
+
+      CONFIRMED: <operation> <path>
+
+  Without it the agent quotes the file and returns `NEEDS CONFIRMATION: ...` instead
+  of acting. That refusal is the safety property — do not work around it by asking the
+  agent to "just do it", and never synthesise the token before the user has answered.
+
+  Every dispatch in this command takes this shape:
+
+  ```
+  Agent(
+    subagent_type: "image-generate:style-manager",
+    run_in_background: false,
+    description: "...",
+    prompt: "<CONFIRMED: ... if destructive and approved>\n<the operation>"
+  )
+  ```
+
+  `run_in_background: false` because you report the agent's result to the user in the
+  same turn; a background spawn returns a launch receipt instead.
+</dispatch_contract>
 
 <examples>
   <example name="Create">
@@ -172,7 +199,7 @@ skills: image-generate:style-format
       2. Check styles/glass.md doesn't exist
       3. Ask: "Describe the glass style"
       4. User: "3D glass material with blue tint, reflections, black background"
-      5. Task style-manager: Create styles/glass.md
+      5. Dispatch `image-generate:style-manager` (foreground): Create styles/glass.md
       6. Report: "Created. Use: --style glass"
     </flow>
   </example>
@@ -188,7 +215,7 @@ skills: image-generate:style-format
           Clean, simple designs..."
       4. AskUserQuestion: "Are you sure you want to delete 'minimalist'?"
       5. User selects: "Yes, delete it"
-      6. Task style-manager: Delete file
+      6. Dispatch with prompt beginning `CONFIRMED: delete styles/minimalist.md`
       7. Report: "Deleted style 'minimalist'"
     </flow>
   </example>
@@ -208,7 +235,7 @@ skills: image-generate:style-format
     <input>/image-generate:style list</input>
     <flow>
       1. Parse: action=list
-      2. Task style-manager: List styles
+      2. Dispatch `image-generate:style-manager` (foreground): List styles
       3. Show: glass, watercolor, cyberpunk
     </flow>
   </example>

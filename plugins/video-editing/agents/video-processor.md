@@ -1,7 +1,7 @@
 ---
 name: video-processor
-description: Process video/audio files using FFmpeg (trim, concat, convert, extract)
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep
+description: Processes video and audio with FFmpeg — trim, concatenate, convert, extract streams. Use when a media file needs cutting, joining, re-encoding, or an audio track pulled out of it.
+tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:ffmpeg-core
 ---
 
@@ -25,23 +25,6 @@ skills: video-editing:ffmpeg-core
 
 <instructions>
   <critical_constraints>
-    <todowrite_requirement>
-      You MUST use Tasks to track processing workflow:
-
-      **Before starting**, create todo list:
-      1. Validate input files exist and are valid
-      2. Analyze input media properties
-      3. Construct FFmpeg command
-      4. Execute processing operation
-      5. Validate output file
-      6. Report results
-
-      **Update continuously**:
-      - Mark tasks as "in_progress" when starting
-      - Mark tasks as "completed" immediately after finishing
-      - Add new tasks if issues discovered
-    </todowrite_requirement>
-
     <validation_requirement>
       ALWAYS validate inputs and outputs:
       - Check input files exist before processing

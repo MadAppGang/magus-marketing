@@ -14,7 +14,7 @@ Replaces manual USER GATEs with automated AUTO GATEs for ~80% autonomy.
 
 ### 1. SERP Analysis Gate (analyst → researcher)
 
-**Triggering Agent**: seo-analyst
+**Triggering Agent**: analyst
 **Quality Thresholds**:
 - Search intent identified with ≥80% confidence
 - At least 5 competitors analyzed
@@ -27,7 +27,7 @@ serp_analysis_gate:
   intent_confidence: >= 80
   competitors_analyzed: >= 5
   serp_features_documented: true
-  result: AUTO_PASS → proceed to seo-researcher
+  result: AUTO_PASS → proceed to researcher
 ```
 
 **Auto-Fail Actions**:
@@ -43,7 +43,7 @@ serp_analysis_retry:
 
 ### 2. Keyword Expansion Gate (researcher → writer)
 
-**Triggering Agent**: seo-researcher
+**Triggering Agent**: researcher
 **Quality Thresholds**:
 - ≥50 keywords discovered (target: 75+)
 - ≥3 topic clusters identified (target: 5+)
@@ -73,7 +73,7 @@ keyword_expansion_retry:
 
 ### 3. Content Quality Gate (writer → editor)
 
-**Triggering Agent**: seo-writer (self-assessment before handoff)
+**Triggering Agent**: writer (self-assessment before handoff)
 **Quality Thresholds**:
 - E-E-A-T score ≥60/100 (writer self-check)
 - Word count within ±10% of brief target
@@ -89,7 +89,7 @@ content_quality_gate:
   keyword_density: 1.0 - 2.0
   readability_flesch: >= 55
   internal_links: >= 2
-  result: AUTO_PASS → proceed to seo-editor
+  result: AUTO_PASS → proceed to editor
 ```
 
 **Auto-Fail Actions**:
@@ -117,7 +117,7 @@ content_quality_retry:
 
 ### 4. Editorial Gate (editor → publish)
 
-**Triggering Agent**: seo-editor
+**Triggering Agent**: editor
 **Gate Type**: USER GATE (always requires human approval)
 
 **Why USER GATE**:
@@ -285,7 +285,7 @@ gate_evaluation_log:
   timestamp: 2026-01-07T15:30:00Z
   session_id: seo-research-20260107-153000-keyword
   gate_type: keyword_expansion_gate
-  agent: seo-researcher
+  agent: researcher
   attempt: 2
   thresholds:
     total_keywords: {required: 50, actual: 42, passed: false}
@@ -312,7 +312,7 @@ Agents reference this skill for quality checks:
       - Readability: {flesch_score}
       - Internal links: {count}
     </evaluate>
-    <on_pass>Proceed to seo-editor</on_pass>
+    <on_pass>Proceed to editor</on_pass>
     <on_fail>Apply self-correction protocol</on_fail>
   </check>
 </quality_gate>

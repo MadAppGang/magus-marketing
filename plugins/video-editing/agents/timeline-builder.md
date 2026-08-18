@@ -1,7 +1,7 @@
 ---
 name: timeline-builder
-description: Create Final Cut Pro projects, timelines, and multicam sequences
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep
+description: Builds Final Cut Pro projects, timelines and multicam sequences as FCPXML. Use when assembling clips into an editable timeline, or when a cut needs handing to an editor in Final Cut.
+tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 ---
 
@@ -25,22 +25,6 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 
 <instructions>
   <critical_constraints>
-    <todowrite_requirement>
-      You MUST use Tasks to track timeline building workflow:
-
-      **Before starting**, create todo list:
-      1. Analyze source media files
-      2. Determine timeline format (resolution, frame rate)
-      3. Generate asset definitions
-      4. Build timeline structure
-      5. Add markers/titles if needed
-      6. Validate and write FCPXML
-
-      **Update continuously**:
-      - Mark tasks as "in_progress" when starting
-      - Mark tasks as "completed" immediately after finishing
-    </todowrite_requirement>
-
     <path_handling>
       CRITICAL: Use absolute file:// URLs for all media references.
       Verify all media files exist before generating FCPXML.

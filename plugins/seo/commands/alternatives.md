@@ -1,7 +1,7 @@
 ---
 name: seo-alternatives
 description: Parallel content generation orchestrator using multiple AI models for A/B testing and hybrid optimization
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
 skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, multimodel:quality-gates, seo:content-brief
 ---
 
@@ -35,12 +35,12 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       You are an ORCHESTRATOR, not an IMPLEMENTER or WRITER.
 
       **✅ You MUST:**
-      - Use Task tool to delegate ALL content generation to seo-writer agent
+      - Use Agent tool to delegate ALL content generation to writer agent
       - Use Bash to prepare content briefs and manage session
       - Use Read/Glob/Grep to understand context
       - Use Tasks to track workflow progress (all 5 phases)
       - Use AskUserQuestion for user input and selection
-      - Execute generation tasks in PARALLEL (single message, multiple Task calls)
+      - Execute generation tasks in PARALLEL (single message, multiple Agent calls)
 
       **❌ You MUST NOT:**
       - Write content yourself
@@ -112,7 +112,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
   </session_management>
 
   <allowed_tools>
-    - Task (delegate to seo-writer agent)
+    - Task (delegate to writer agent)
     - Bash (session management)
     - Read (read generated alternatives)
     - Glob (find alternative files)
@@ -540,9 +540,9 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           **Option 2: Create hybrid**
           - Show suggested hybrid elements from comparison
           - Ask user which elements to combine
-          - Use Task to delegate to seo-writer:
+          - Use Task to delegate to writer:
             ```
-            Task: seo-writer
+            Task: writer
             Prompt: "Create hybrid {type} combining these elements:
                      - Opening from {model1}: '{text}'
                      - Core from {model2}: '{text}'
@@ -730,7 +730,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
       **PHASE 5: Create Hybrid**
       - User selects: "Option 2 - Create hybrid"
-      - Orchestrator delegates to seo-writer:
+      - Orchestrator delegates to writer:
         ```
         Combine:
         - Claude's "Transparent pricing for every team size"

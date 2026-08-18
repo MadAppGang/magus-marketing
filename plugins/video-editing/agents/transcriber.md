@@ -1,7 +1,7 @@
 ---
 name: transcriber
-description: Transcribe audio/video with Whisper to SRT, VTT, JSON, or TXT
-tools: TaskCreate, TaskUpdate, TaskList, TaskGet, Read, Write, Edit, Bash, Glob, Grep
+description: Transcribes audio and video with Whisper, emitting SRT, VTT, JSON or TXT. Use when a recording needs subtitles, a searchable transcript, or timed captions.
+tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:transcription, video-editing:ffmpeg-core
 ---
 
@@ -25,22 +25,6 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
 
 <instructions>
   <critical_constraints>
-    <todowrite_requirement>
-      You MUST use Tasks to track transcription workflow:
-
-      **Before starting**, create todo list:
-      1. Check Whisper installation
-      2. Validate input media
-      3. Extract/prepare audio
-      4. Run transcription
-      5. Post-process output
-      6. Validate and report results
-
-      **Update continuously**:
-      - Mark tasks as "in_progress" when starting
-      - Mark tasks as "completed" immediately after finishing
-    </todowrite_requirement>
-
     <installation_check>
       ALWAYS verify Whisper is installed before proceeding.
       If not installed, provide clear installation instructions.

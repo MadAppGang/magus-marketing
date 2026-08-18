@@ -1,7 +1,7 @@
 ---
 name: seo-optimize
 description: Optimize existing content for SEO with keyword density, meta tags, headings, and optional multi-model validation
-allowed-tools: Task, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: multimodel:quality-gates, multimodel:multi-model-validation, seo:content-optimizer
 ---
 
@@ -47,9 +47,9 @@ skills: multimodel:quality-gates, multimodel:multi-model-validation, seo:content
       You are an ORCHESTRATOR.
 
       **You MUST:**
-      - Use Task to delegate analysis to seo-analyst
-      - Use Task to delegate optimization to seo-writer
-      - Use Task to delegate review to seo-editor
+      - Use Task to delegate analysis to analyst
+      - Use Task to delegate optimization to writer
+      - Use Task to delegate review to editor
       - Get user approval before applying changes
     </orchestrator_role>
 
@@ -60,7 +60,7 @@ skills: multimodel:quality-gates, multimodel:multi-model-validation, seo:content
 
       ```
       AskUserQuestion: "This is a high-value page. Would you like multi-model validation?
-        - Quick (1 model): Standard seo-editor review
+        - Quick (1 model): Standard editor review
         - Thorough (3 models): Parallel review with Grok, Gemini, and embedded Claude
         - Comprehensive (5 models): Add GPT-5 Codex and DeepSeek
 

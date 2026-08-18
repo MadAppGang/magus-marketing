@@ -1,7 +1,7 @@
 ---
 name: video-edit
 description: Main video editing orchestrator with multi-agent coordination
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
 skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:final-cut-pro
 ---
 
@@ -32,7 +32,7 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       You are an ORCHESTRATOR, not an IMPLEMENTER.
 
       **You MUST:**
-      - Use Task tool to delegate ALL processing to agents
+      - Use Agent tool to delegate ALL processing to agents
       - Use Bash for dependency checks (ffmpeg, whisper)
       - Use Tasks to track workflow progress
       - Use AskUserQuestion for user decisions

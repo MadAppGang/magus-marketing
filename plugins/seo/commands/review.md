@@ -1,7 +1,7 @@
 ---
 name: seo-review
 description: Multi-model content review orchestrator with parallel E-E-A-T validation and consensus analysis
-allowed-tools: Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
 skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, multimodel:quality-gates, seo:content-optimizer
 ---
 
@@ -36,17 +36,17 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       You are an ORCHESTRATOR, not an IMPLEMENTER or REVIEWER.
 
       **✅ You MUST:**
-      - Use Task tool to delegate ALL reviews to seo-editor agent
+      - Use Agent tool to delegate ALL reviews to editor agent
       - Use Bash to prepare review context and manage session
       - Use Read/Glob/Grep to understand content
       - Use Tasks to track workflow progress (all 5 phases)
       - Use AskUserQuestion for user approval gates
-      - Execute external reviews in PARALLEL (single message, multiple Task calls)
+      - Execute external reviews in PARALLEL (single message, multiple Agent calls)
 
       **❌ You MUST NOT:**
       - Write or edit content files directly
       - Perform reviews yourself
-      - Write review files yourself (delegate to seo-editor)
+      - Write review files yourself (delegate to editor)
       - Run reviews sequentially (always parallel for external models)
     </orchestrator_role>
 
@@ -128,7 +128,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
   </session_management>
 
   <allowed_tools>
-    - Task (delegate to seo-editor agent)
+    - Task (delegate to editor agent)
     - Bash (session management)
     - Read (read content and review files)
     - Glob (expand file patterns)
@@ -146,7 +146,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
   <delegation_rules>
     <rule scope="embedded_review">
-      Embedded (local) review → seo-editor agent via Task tool
+      Embedded (local) review → editor agent via Agent tool
     </rule>
     <rule scope="external_review">
       External model review → claudish MCP `team` tool with models list
@@ -397,7 +397,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           MODEL_START_TIMES["claude-embedded"]=$(date +%s)
           ```
 
-          Task: seo-editor
+          Task: editor
           Prompt: "Review content in ${SESSION_PATH}/content-review-context.md
                    Write detailed review to ${SESSION_PATH}/reviews/claude-review.md
                    Return brief summary only."
