@@ -88,7 +88,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 
       <steps>
         <step>Delegate to timeline-builder:
-          Task: timeline-builder
+          Agent: video-editing:timeline-builder
           "Create FCP project '{name}' with:
            Clips: {clip_list}
            Format: {resolution} @ {frame_rate}
@@ -175,7 +175,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
       2. Extract clip properties (duration, resolution, frame rate)
       3. Ask user for project name
       4. Delegate to timeline-builder:
-         Task: timeline-builder
+         Agent: video-editing:timeline-builder
          "Create FCP project 'MyProject' with clips: intro.mov, main.mov, outro.mov
           Format: 1920x1080 @ 24fps. Sequential timeline."
       5. Validate: xmllint --noout MyProject.fcpxml
@@ -190,7 +190,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
       2. Read interview.json to extract marker timestamps
       3. Extract clip properties from interview.mp4
       4. Delegate to timeline-builder:
-         Task: timeline-builder
+         Agent: video-editing:timeline-builder
          "Create FCP project from interview.mp4. Add chapter markers from interview.json.
           Each transcript segment becomes a marker with text content."
       5. Validate FCPXML
@@ -205,7 +205,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
       2. Sort clips by name (session1.mov, session2.mov, etc.)
       3. Extract properties from each clip
       4. Delegate to timeline-builder:
-         Task: timeline-builder
+         Agent: video-editing:timeline-builder
          "Create FCP project 'Conference Talk' with clips: [sorted list]
           Add chapter marker at start of each clip with clip name."
       5. Validate FCPXML

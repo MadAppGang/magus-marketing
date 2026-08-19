@@ -91,7 +91,7 @@ skills: instantly:sequence-best-practices, multimodel:task-orchestration
     </phase>
 
     <phase number="2" name="Sequence Creation">
-      <step>Launch sequence-builder via Task</step>
+      <step>Launch sequence-builder via Agent</step>
       <step>Pass all context to agent</step>
       <step>Wait for sequence design</step>
     </phase>
@@ -116,7 +116,7 @@ skills: instantly:sequence-best-practices, multimodel:task-orchestration
          - Product: Marketing automation SaaS
          - Value prop: Reduce manual work by 40%
          - Desired CTA: Book 15-min demo
-      2. Launch sequence-builder agent via Task
+      2. Launch sequence-builder agent via Agent
       3. Agent designs sequence:
          - Email 1 (Day 0): Problem + value prop
          - Email 2 (Day 3): Case study (similar company results)

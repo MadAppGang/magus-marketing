@@ -110,7 +110,7 @@ skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:ta
       User: "My open rate is 22%, help me test subject lines"
     </scenario>
     <workflow>
-      1. Launch outreach-optimizer agent via Task
+      1. Launch outreach-optimizer agent via Agent
       2. Agent analyzes current performance:
          - Open rate: 22% (below 25-40% benchmark)
          - Diagnosis: Subject line issue

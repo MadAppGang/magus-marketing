@@ -397,7 +397,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           MODEL_START_TIMES["claude-embedded"]=$(date +%s)
           ```
 
-          Task: editor
+          Agent: seo:editor
           Prompt: "Review content in ${SESSION_PATH}/content-review-context.md
                    Write detailed review to ${SESSION_PATH}/reviews/claude-review.md
                    Return brief summary only."

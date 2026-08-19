@@ -110,7 +110,7 @@ skills: video-editing:transcription
 
       <steps>
         <step>For each file, delegate to transcriber:
-          Task: transcriber
+          Agent: video-editing:transcriber
           "Transcribe {file} using {model} model. Output formats: {formats}. Language: {language}"
         </step>
         <step>For batch processing, consider parallel execution if multiple files</step>
@@ -178,7 +178,7 @@ skills: video-editing:transcription
       2. Validate interview.mp4 exists and has audio
       3. Ask user for quality/format preferences
       4. Delegate to transcriber:
-         Task: transcriber
+         Agent: video-editing:transcriber
          "Transcribe interview.mp4 using small model. Output SRT format."
       5. Report: "Created interview.srt with 1,234 words"
     </correct_approach>
@@ -191,7 +191,7 @@ skills: video-editing:transcription
       2. Use Glob to find all .mp4 files
       3. Confirm file list with user
       4. For each file, delegate to transcriber:
-         Task: transcriber
+         Agent: video-editing:transcriber
          "Transcribe {file} using large-v3 model. Output JSON format."
       5. Report: "Transcribed 5 files, total 45 minutes of audio"
     </correct_approach>
@@ -203,7 +203,7 @@ skills: video-editing:transcription
       1. Check Whisper installed
       2. Validate podcast.mp3 exists
       3. Delegate to transcriber:
-         Task: transcriber
+         Agent: video-editing:transcriber
          "Transcribe podcast.mp3. Generate all formats: SRT, VTT, JSON, TXT."
       4. Report: "Created podcast.srt, podcast.vtt, podcast.json, podcast.txt"
     </correct_approach>

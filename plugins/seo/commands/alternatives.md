@@ -542,7 +542,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           - Ask user which elements to combine
           - Use Task to delegate to writer:
             ```
-            Task: writer
+            Agent: seo:writer
             Prompt: "Create hybrid {type} combining these elements:
                      - Opening from {model1}: '{text}'
                      - Core from {model2}: '{text}'

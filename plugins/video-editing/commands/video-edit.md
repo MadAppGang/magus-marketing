@@ -115,20 +115,20 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       <objective>Delegate to appropriate agents</objective>
 
       <steps>
-        <step>For each required phase, launch appropriate agent via Task:</step>
+        <step>For each required phase, launch appropriate agent via Agent:</step>
         <step>
           Processing phase:
-          Task: video-processor
+          Agent: video-editing:video-processor
           Prompt: "{processing_instructions}"
         </step>
         <step>
           Transcription phase (if needed):
-          Task: transcriber
+          Agent: video-editing:transcriber
           Prompt: "{transcription_instructions}"
         </step>
         <step>
           FCP phase (if needed):
-          Task: timeline-builder
+          Agent: video-editing:timeline-builder
           Prompt: "{timeline_instructions}"
         </step>
         <step>Wait for agent completion</step>
@@ -192,7 +192,7 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       2. Detect: Processing workflow (trim operation)
       3. Confirm with user: "I'll trim video.mp4 from 1:30 to 2:45. Proceed?"
       4. Delegate to video-processor:
-         Task: video-processor
+         Agent: video-editing:video-processor
          "Trim video.mp4 from 00:01:30 to 00:02:45. Output to video_trimmed.mp4"
       5. Report result: "Created video_trimmed.mp4 (75 seconds)"
     </correct_approach>
@@ -205,11 +205,11 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       2. Detect: Multi-phase workflow (Transcribe + FCP)
       3. Confirm: "I'll transcribe interview.mp4, then create an FCP project with chapter markers. Proceed?"
       4. Phase 1 - Delegate transcription:
-         Task: transcriber
+         Agent: video-editing:transcriber
          "Transcribe interview.mp4, output SRT and JSON with timestamps"
       5. Wait for transcriber to complete
       6. Phase 2 - Delegate FCP creation:
-         Task: timeline-builder
+         Agent: video-editing:timeline-builder
          "Create FCP project from interview.mp4 with chapter markers from interview.json"
       7. Report: "Created interview.fcpxml with transcript-based chapters"
     </correct_approach>

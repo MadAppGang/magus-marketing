@@ -195,8 +195,7 @@ skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extr
 
       <task_delegation>
         ```
-        Task: data-analyst
-
+        Agent: seo:data-analyst
         Prompt:
         SESSION_PATH: ${SESSION_PATH}
 
