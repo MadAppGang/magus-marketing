@@ -4,6 +4,17 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [magus-marketing 2.0.1] - 2026-08-19
+
+### Changed
+
+- Channel version aligned with the Marketplace 9.3.0 dispatch-integrity release it
+  carries: `seo` v2.0.1, `video-editing` v1.2.1, `instantly` v2.0.1. No content beyond
+  9.3.0; this bump exists because the channel number previously stayed at 2.0.0 while
+  its plugins moved, and the publish pipeline is now exercised end-to-end from CI.
+
+---
+
 ## [image-generate 3.0.0] - 2026-07-29
 
 ### Added

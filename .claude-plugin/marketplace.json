@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "Marketing and content plugins for Magus \u2014 SEO, cold email outreach, AI image generation, and video editing, plus the claudish runtime they build on. Source of truth: MadAppGang/magus-src. This is a lean dist repo.",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "pluginRoot": "./plugins"
   },
   "plugins": [
