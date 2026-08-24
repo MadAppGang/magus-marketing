@@ -68,7 +68,11 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       Example pattern:
       Use the claudish `team` MCP tool in a single call:
       team(mode="run", path=SESSION_PATH, models=["model-1", "model-2", "model-3"],
-           input=REVIEW_PROMPT, timeout=180)
+           input=REVIEW_PROMPT, timeout=180, min_output_bytes=400)
+
+      Always pass a shape check — `require_pattern` when the prompt mandates a format,
+      `min_output_bytes` when it does not. Exit code 0 is not a success oracle: it is 0
+      on API errors and on a model that answered with nothing useful.
 
       The `team` tool runs all models in parallel internally and returns structured
       per-model results. This is the KEY INNOVATION that makes multi-model review
@@ -403,6 +407,27 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
                    Return brief summary only."
         </step>
 
+        <step>Verify the embedded review actually landed, before consolidating:
+          ```bash
+          EMBEDDED_REVIEW="${SESSION_PATH}/reviews/claude-review.md"
+          if [ ! -s "$EMBEDDED_REVIEW" ] || [ "$(wc -c < "$EMBEDDED_REVIEW")" -lt 200 ]; then
+            EMBEDDED_STATUS="failed"   # missing or a stub — NOT a review
+          else
+            EMBEDDED_STATUS="success"
+          fi
+          ```
+
+          This check exists because the embedded reviewer is an `Agent`, not a `team`
+          slot, so no tool-level guarantee covers it — `require_pattern` and
+          `min_output_bytes` apply only to models inside the `team` call. `seo:editor`
+          returns a brief summary and persists the real review to the file, so the
+          returned message proves nothing about whether the file was written. An agent
+          that answered without writing leaves an absent or stub file, and consolidation
+          cannot tell that apart from a clean review — it finds no issues and reports
+          none. Carry EMBEDDED_STATUS into the model table and mark it FAILED there;
+          do not count it as a completed review.
+        </step>
+
         <step>If external models selected, launch ALL in PARALLEL via claudish `team` MCP tool:
 
           Record start time, then call:
@@ -416,8 +441,16 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           3. Readability
           4. Factual accuracy
           5. Brand voice consistency",
-            timeout=180)
+            timeout=180,
+            min_output_bytes=400)
           ```
+
+          `min_output_bytes` is the shape check for this call. The prompt mandates five
+          topics but no machine-checkable format, so `require_pattern` has nothing to
+          match — use the blunt instrument instead. 400 bytes is a deliberate floor, not
+          a quality bar: it is far below any genuine five-part review, so it only catches
+          a slot that returned nothing or a stub. Without it, exit code 0 is taken as
+          success, and exit code 0 also happens on an API error.
 
           The `team` tool runs all models in parallel and returns structured per-model results.
           Write each model's output to ${SESSION_PATH}/reviews/{model_slug}-review.md.
@@ -429,11 +462,20 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           MODEL_END=$(date +%s)
           MODEL_DURATION=$((MODEL_END - MODEL_START_TIMES["$model"]))
 
-          # Count issues from review file
-          ISSUES=$(grep -c "^### \|^## CRITICAL\|^## HIGH" "${SESSION_PATH}/reviews/${model}-review.md" || echo 0)
+          # Count issues from the review file. Use the SAME slug the previous step
+          # wrote ({model_slug}), not the raw model id — they differ whenever the id
+          # contains a "/" or "@", and a mismatched path sends grep into the
+          # `|| echo 0` branch, reporting a clean review for a file never opened.
+          REVIEW_FILE="${SESSION_PATH}/reviews/${model_slug}-review.md"
+          ISSUES=$(grep -c "^### \|^## CRITICAL\|^## HIGH" "$REVIEW_FILE" || echo 0)
 
-          # Track performance
-          track_model_performance "$model" "success" "$MODEL_DURATION" "$ISSUES"
+          # Track performance. STATUS is the slot's status from the team response —
+          # never the literal "success". A FAILED slot (including one reported EMPTY
+          # by min_output_bytes) recorded as a success enters llm-performance.json as
+          # a fast, free, zero-issue reviewer, which makes it MORE likely to be
+          # recommended next run. A silent failure that promotes itself is worse than
+          # a loud one.
+          track_model_performance "$model" "$STATUS" "$MODEL_DURATION" "$ISSUES"
           ```
         </step>
 

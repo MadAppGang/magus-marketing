@@ -65,7 +65,11 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       Example pattern:
       Use the claudish `team` MCP tool in a single call:
       team(mode="run", path=SESSION_PATH, models=["model-1", "model-2", "model-3"],
-           input=GENERATION_PROMPT, timeout=180)
+           input=GENERATION_PROMPT, timeout=180, min_output_bytes=400)
+
+      Always pass a shape check — `require_pattern` when the prompt mandates a format,
+      `min_output_bytes` when it does not. Exit code 0 is not a success oracle: it is 0
+      on API errors and on a model that produced nothing.
 
       The `team` tool runs all models in parallel internally and returns structured
       per-model results.
@@ -264,15 +268,25 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           Select models to generate alternatives (recommend 3-5 for diversity):
 
           Top Performers for Content:
-          - claude-embedded (Sonnet) - FREE, excellent quality
+          - internal - runs on the user's own Claude subscription, no API cost
           - (models resolved from `list_models` (live catalog))
           - gemini - $7.00/1M, polished output
           - qwen 🆓 - FREE, technical focus
           - opus - $15/1M, premium quality
           - [Custom model ID]
 
-          Recommended: 1 embedded + 2-3 external for cost/quality balance
+          Recommended: 1 native + 2-3 external for cost/quality balance
           ```
+
+          **Offer `internal`, never `claude-embedded`.** What the user picks here goes
+          straight into the `team` call's `models` array below, with no filtering step.
+          claudish accepts exactly five native names — `internal`, `default`, `opus`,
+          `sonnet`, `haiku` — and forwards anything else to the Anthropic API verbatim,
+          which answers 404 for an invented name like `claude-embedded`. Paired with the
+          hardcoded `"success"` that used to follow, that 404 was recorded as a completed
+          generation. `internal` and `default` select whichever tier Claude Code is
+          configured with; `opus`/`sonnet`/`haiku` pin one. Native names became runnable
+          slots in claudish 7.65.0.
         </step>
 
         <step>Calculate and display costs:
@@ -333,8 +347,15 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
             input="Read brief in ${SESSION_PATH}/content-brief.md
           Generate {type} following all requirements
           Include self-assessment: keyword usage, appeal, E-E-A-T",
-            timeout=180)
+            timeout=180,
+            min_output_bytes=400)
           ```
+
+          `min_output_bytes` is the shape check here. The prompt mandates no
+          machine-checkable format, so `require_pattern` has nothing to match; 400 bytes
+          is a floor well below any real piece of generated content, so it catches only
+          a slot that returned nothing or a stub. Exit code 0 is not a success oracle —
+          it is 0 on API errors too.
 
           The `team` tool runs all models in parallel and returns structured per-model results.
           Write each model's output to ${SESSION_PATH}/alternatives/{model_slug}-alternative.md.
@@ -345,8 +366,12 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           MODEL_END=$(date +%s)
           MODEL_DURATION=$((MODEL_END - MODEL_START_TIMES["$model"]))
 
-          # Track performance
-          track_model_performance "$model" "success" "$MODEL_DURATION"
+          # Track performance. STATUS is the slot's status from the team response —
+          # never the literal "success". A FAILED slot (including one reported EMPTY by
+          # min_output_bytes) recorded as a success enters llm-performance.json as a
+          # fast, free, zero-cost generator and becomes MORE likely to be recommended
+          # next run — a silent failure that promotes itself.
+          track_model_performance "$model" "$STATUS" "$MODEL_DURATION"
           ```
         </step>
 
@@ -680,7 +705,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
       **PHASE 2: Model Selection**
       - Show options with historical data
-      - User selects: claude-embedded, grok, qwen-coder (3 models)
+      - User selects: internal, grok, qwen-coder (3 models)
       - Calculate cost: ~$0.05 total (very affordable)
       - User approves
 

@@ -1,6 +1,6 @@
 {
   "name": "seo",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
   "author": {
     "name": "Jack Rudenko",

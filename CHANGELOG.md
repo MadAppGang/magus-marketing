@@ -4,6 +4,62 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [seo 2.1.0] - 2026-08-24
+
+### Fixed
+
+- **`/seo:alternatives` offered a model claudish cannot serve.** The picker listed
+  `claude-embedded`, and what the user picks goes straight into the `team` call's
+  `models` array with no filtering step. claudish accepts exactly five native names —
+  `internal`, `default`, `opus`, `sonnet`, `haiku` — and forwards anything else to the
+  Anthropic API verbatim, which answers 404 for an invented one. Now offers `internal`.
+  Native names only became runnable slots in claudish 7.65.0, so before that there was
+  nothing correct to offer here, which is presumably where the invented name came from.
+
+- **Every model was recorded as a success, whatever actually happened.** Both commands
+  called `track_model_performance "$model" "success" ...` with the status hardcoded. A
+  slot that 404'd, timed out, or returned nothing was written into
+  `ai-docs/llm-performance.json` as a fast, free, zero-issue model — and that file feeds
+  the "Top Performers" list shown at the next run's model selection. The silent failure
+  was promoting itself. Now passes the slot's real status from the team response.
+
+- **Nothing checked that the embedded review had been written.** `/seo:review`
+  dispatches `seo:editor` as an `Agent` that returns a brief summary and persists the
+  real review to `reviews/claude-review.md` — so the returned message proves nothing
+  about the file. An agent that answered without writing left an absent or stub file,
+  which consolidation reads as a clean review: no issues found, so none reported. A new
+  step verifies the file landed and is not a stub before consolidating.
+
+  It stays an `Agent` rather than moving into the `team` call, unlike the multimodel
+  fix — though not for the reason first supposed. `--agent` does **not** drag an agent's
+  pinned model onto the session. Measured 2026-08-24 with a probe agent declaring
+  `model: haiku`: `claude --model sonnet --agent <it>` reported `init.model =
+  claude-sonnet-5` and billed only sonnet, while still applying the agent's tool
+  allowlist (`init.tools = ['Read']`). The real reason is that allowlist. `agent`
+  applies to EVERY slot in a run, and `seo:editor` grants only `Read, Write, Glob,
+  Grep` — migrating would strip Bash and WebSearch from every external reviewer, a
+  behaviour change buying nothing, since the artifact check above already closes the
+  defect.
+
+- **`ISSUES` was counted from a path the previous step never wrote.** The count read
+  `${model}-review.md` while the step above wrote `{model_slug}-review.md`. Those differ
+  for any id containing `/` or `@`, and the mismatch fell straight into the `|| echo 0`
+  branch — a clean review reported for a file that was never opened.
+
+### Added
+
+- **`min_output_bytes=400` on both `team` calls.** These prompts mandate topics but no
+  machine-checkable format, so `require_pattern` has nothing to match. 400 bytes is a
+  deliberate floor rather than a quality bar: far below any genuine review or generated
+  draft, so it catches only a slot that returned nothing or a stub. Requires
+  claudish >= 7.65.0.
+
+- The `<parallel_execution_requirement>` example in each command now carries the same
+  shape check as the real call below it. An example that omits it is where the omission
+  gets copied from.
+
+---
+
 ## [magus-marketing 2.0.2] - 2026-08-19
 
 ### Changed
