@@ -76,9 +76,10 @@
           "version": "2.1.0",
           "date": "2026-08-24",
           "kinds": [
-            "Fixed"
+            "Fixed",
+            "Added"
           ],
-          "summary": "Offered a model claudish cannot serve, and recorded every slot as a success whatever happened"
+          "summary": "/seo:alternatives offered a model claudish cannot serve"
         },
         {
           "version": "2.0.1",
@@ -102,11 +103,6 @@
             "Changed"
           ],
           "summary": "Pointers to the deleted shared/model-aliases.json replaced with live-catalog resolution, and\u2026"
-        },
-        {
-          "version": "1.8.0",
-          "date": "2026-05-09",
-          "summary": "Declared claudish as a dependencies entry (was an implicit dependency consumed via\u2026"
         }
       ]
     },
