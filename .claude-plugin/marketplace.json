@@ -15,7 +15,7 @@
       "name": "claudish",
       "source": "./plugins/claudish",
       "description": "MCP runtime for external AI models. Proxies OpenRouter, Ollama and LM Studio, runs blind team voting across models, manages async sessions, and streams channel notifications. Required by code-analysis, dev, multimodel, designer and seo.",
-      "version": "1.0.2",
+      "version": "1.1.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -37,6 +37,11 @@
       "strict": true,
       "releases": [
         {
+          "version": "1.1.0",
+          "date": "2026-08-26",
+          "summary": "Ships the claudish-usage skill and the model resolver. Both moved out of multimodel, which\u2026"
+        },
+        {
           "version": "1.0.2",
           "date": "2026-08-26",
           "summary": "The same manifest move, with no change to what each registers"
@@ -57,7 +62,7 @@
       "name": "seo",
       "source": "./plugins/seo",
       "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
-      "version": "2.1.1",
+      "version": "2.1.2",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -77,6 +82,11 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.1.2",
+          "date": "2026-08-26",
+          "summary": "References updated to claudish:claudish-usage"
+        },
         {
           "version": "2.1.1",
           "date": "2026-08-26",
@@ -100,11 +110,6 @@
           "version": "2.0.0",
           "date": "2026-08-18",
           "summary": "BREAKING \u2014 five agents lost their plugin-name prefix, so their addresses changed\u2026"
-        },
-        {
-          "version": "1.8.2",
-          "date": "2026-08-15",
-          "summary": "Same widening, on claudish"
         }
       ]
     },

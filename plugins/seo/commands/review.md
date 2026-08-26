@@ -305,7 +305,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       </objective>
 
       <steps>
-        <step>Resolve review models via `multimodel:claudish-usage` → Model Alias Resolution (`list_models` for the current set, `search_models` for a specific family).
+        <step>Resolve review models via `claudish:claudish-usage` → Model Alias Resolution (`list_models` for the current set, `search_models` for a specific family).
           If `list_models` is unavailable, report that the claudish MCP server is not reachable.
         </step>
 
