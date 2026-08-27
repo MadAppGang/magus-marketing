@@ -15,7 +15,7 @@
       "name": "claudish",
       "source": "./plugins/claudish",
       "description": "MCP runtime for external AI models. Proxies OpenRouter, Ollama and LM Studio, runs blind team voting across models, manages async sessions, and streams channel notifications. Required by code-analysis, dev, multimodel, designer and seo.",
-      "version": "1.1.0",
+      "version": "2.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -36,6 +36,14 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.0.0",
+          "date": "2026-08-28",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "BREAKING \u2014 the team contract in claudish:claudish-usage is rewritten for claudish 8.0.0"
+        },
         {
           "version": "1.1.0",
           "date": "2026-08-26",
@@ -62,7 +70,7 @@
       "name": "seo",
       "source": "./plugins/seo",
       "description": "SEO analysis and optimisation. Audits content and technical SEO, proposes and applies fixes through self-correction loops, and gates each stage on explicit approval.",
-      "version": "2.1.2",
+      "version": "3.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -82,6 +90,15 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "3.0.0",
+          "date": "2026-08-28",
+          "kinds": [
+            "Fixed",
+            "Changed"
+          ],
+          "summary": "A failed model could promote itself in future model selection"
+        },
         {
           "version": "2.1.2",
           "date": "2026-08-26",
@@ -105,11 +122,6 @@
           "version": "2.0.1",
           "date": "2026-08-19",
           "summary": "Dispatch specs in alternatives/performance/review namespaced to seo:analyst, seo:writer,\u2026"
-        },
-        {
-          "version": "2.0.0",
-          "date": "2026-08-18",
-          "summary": "BREAKING \u2014 five agents lost their plugin-name prefix, so their addresses changed\u2026"
         }
       ]
     },

@@ -62,17 +62,24 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       CRITICAL: Execute ALL content generation tasks in parallel using the claudish
       `team` MCP tool for 3-5x speedup.
 
-      Example pattern:
-      Use the claudish `team` MCP tool in a single call:
+      Example pattern — write GENERATION_PROMPT to a file first, then one call:
       team(mode="run", path=SESSION_PATH, models=["model-1", "model-2", "model-3"],
-           input=GENERATION_PROMPT, timeout=180, min_output_bytes=400)
+           input_file="${SESSION_PATH}/prompt.md", min_output_bytes=400)
 
       Always pass a shape check — `require_pattern` when the prompt mandates a format,
       `min_output_bytes` when it does not. Exit code 0 is not a success oracle: it is 0
       on API errors and on a model that produced nothing.
 
-      The `team` tool runs all models in parallel internally and returns structured
-      per-model results.
+      `run` STARTS the models and returns a slot map immediately — it does not wait and
+      it does not carry the generated content. Poll
+      `team(mode="status", path=SESSION_PATH)` until no slot in `models` has
+      `state === "RUNNING"`, then read each result from `response-<slot>.md`. There is no
+      `timeout` parameter any more, and passing one is silently ignored.
+
+      **There is no blocking shortcut for this call.** `run-and-judge` still blocks, but
+      it only fits work that wants a judging stage — a plain generation call must poll.
+      Full procedure: `claudish:claudish-usage` → "The three-step lifecycle". Requires
+      claudish >= 8.0.0.
     </parallel_execution_requirement>
 
     <tasks_requirement>
@@ -340,14 +347,18 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
         <step>Launch ALL content generation tasks in PARALLEL via claudish `team` MCP tool:
 
+          Write the generation prompt to `${SESSION_PATH}/alternatives/prompt.md`:
+          ```
+          Read brief in ${SESSION_PATH}/content-brief.md
+          Generate {type} following all requirements
+          Include self-assessment: keyword usage, appeal, E-E-A-T
+          ```
+
           Record start time, then call:
           ```
           team(mode="run", path="${SESSION_PATH}/alternatives",
             models=[...selected_models...],
-            input="Read brief in ${SESSION_PATH}/content-brief.md
-          Generate {type} following all requirements
-          Include self-assessment: keyword usage, appeal, E-E-A-T",
-            timeout=180,
+            input_file="${SESSION_PATH}/alternatives/prompt.md",
             min_output_bytes=400)
           ```
 
@@ -357,8 +368,17 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           a slot that returned nothing or a stub. Exit code 0 is not a success oracle —
           it is 0 on API errors too.
 
-          The `team` tool runs all models in parallel and returns structured per-model results.
-          Write each model's output to ${SESSION_PATH}/alternatives/{model_slug}-alternative.md.
+          **`run` returns before any model has answered.** It hands back a `slots` map
+          (model name → slot id) and nothing else. Poll
+          `team(mode="status", path="${SESSION_PATH}/alternatives")` until no slot in
+          `models` has `state === "RUNNING"`. Bound that loop; read
+          `idle_seconds_by_slot` together with `activity_by_slot` before concluding a
+          quiet slot is stuck, and never auto-cancel one that is `tool_executing`.
+
+          Once settled, copy each slot's answer from
+          `${SESSION_PATH}/alternatives/response-{slot}.md` to
+          `${SESSION_PATH}/alternatives/{model_slug}-alternative.md`, using the `slots`
+          map to pair slot id with model.
         </step>
 
         <step>Track completion and calculate durations:
@@ -366,11 +386,13 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           MODEL_END=$(date +%s)
           MODEL_DURATION=$((MODEL_END - MODEL_START_TIMES["$model"]))
 
-          # Track performance. STATUS is the slot's status from the team response —
-          # never the literal "success". A FAILED slot (including one reported EMPTY by
-          # min_output_bytes) recorded as a success enters llm-performance.json as a
-          # fast, free, zero-cost generator and becomes MORE likely to be recommended
-          # next run — a silent failure that promotes itself.
+          # Track performance. STATUS is the slot's state from a SETTLED
+          # team(mode="status") response — status.models[<slot>].state — never the
+          # literal "success", and never anything read out of the run response (which
+          # returns before any model has finished). A FAILED slot (including one
+          # reported EMPTY by min_output_bytes) recorded as a success enters
+          # llm-performance.json as a fast, free, zero-cost generator and becomes MORE
+          # likely to be recommended next run — a silent failure that promotes itself.
           track_model_performance "$model" "$STATUS" "$MODEL_DURATION"
           ```
         </step>

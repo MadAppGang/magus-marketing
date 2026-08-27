@@ -4,6 +4,62 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [claudish 2.0.0] - 2026-08-28
+
+### Changed
+- **BREAKING — the `team` contract in `claudish:claudish-usage` is rewritten for claudish
+  8.0.0.** The skill now documents `run` as non-blocking and carries "The three-step
+  lifecycle" — start, poll `status` until settled, read `response-<slot>.md` — as the one
+  place that procedure is written. Every other plugin's `team` call site points here rather
+  than repeating it.
+- Parameter table corrected: `timeout` removed, `input_file` and `slot` added, `mode` gains
+  `"cancel"`. A note records that a leftover `timeout` is silently ignored, not rejected,
+  because the schema does not set `additionalProperties: false`.
+- New guidance on telling a stuck slot from a busy one: `idle_seconds_by_slot` and
+  `activity_by_slot` are only meaningful read together. 90s idle in `tool_executing` is a
+  build; 90s idle in `running` is a model that stopped mid-answer.
+- Failure table gains `cancelled` (your decision, not a crash) and `RUNNING` at the poll
+  ceiling (not a failure), alongside `shape_mismatch` and `nonzero_exit`.
+- Three new best practices: poll to completion, never read results from the `run` response,
+  and pass long prompts as `input_file`.
+
+### Migration notes
+Requires **claudish >= 8.0.0**. The skill states that as a hard floor, because a workflow
+written to it starts a run and reads nothing on 7.x.
+
+---
+
+## [seo 3.0.0] - 2026-08-28
+
+### Fixed
+- **A failed model could promote itself in future model selection.** `/seo:alternatives`
+  writes each slot's status into `llm-performance.json`, which biases which models get
+  recommended next run. Under claudish 8.x, `run` returns before any model has answered, so
+  every slot read as non-failed — a broken model would have been recorded as a fast,
+  free, zero-cost generator and recommended more often. Status now comes from
+  `status.models[<slot>].state` on a settled poll.
+
+### Changed
+- **BREAKING — `/seo:review` and `/seo:alternatives` poll for completion and need claudish
+  >= 8.0.0.** Both called `team(mode:"run")` and read per-model output straight from the
+  response. They now poll `team(mode:"status")` until no slot is `RUNNING`, then copy each
+  answer from `response-<slot>.md` to the `{model_slug}` file the rest of each command
+  reads.
+- Both write their prompt to a file and pass `input_file`; `timeout` is removed from both.
+- `/seo:alternatives` records that there is no blocking shortcut for it. `run-and-judge`
+  still blocks but only fits work that wants a judging stage, and a plain generation call
+  has none — so polling is mandatory, not a preference.
+- Dead `allowed-tools` entries removed from all 8 commands (`alternatives`, `audit`,
+  `brief`, `optimize`, `performance`, `research`, `review`, `start`). They named tools that
+  no longer exist. `allowed-tools` is a permission grant, so they did nothing — but they
+  told every reader the command uses a workflow it cannot use. Part of the 147-entry sweep
+  written for `dev` 5.0.0; `seo` was never bumped for its share until now.
+
+### Migration notes
+Requires **claudish >= 8.0.0**, which `seo` reaches through its `claudish` dependency.
+
+---
+
 ## [seo 2.1.0] - 2026-08-24
 
 ### Fixed

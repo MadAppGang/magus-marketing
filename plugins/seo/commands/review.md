@@ -65,18 +65,23 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
       CRITICAL: Execute ALL external model reviews in parallel using the claudish
       `team` MCP tool. This achieves 3-5x speedup vs sequential.
 
-      Example pattern:
-      Use the claudish `team` MCP tool in a single call:
+      Example pattern — write REVIEW_PROMPT to a file first, then one call:
       team(mode="run", path=SESSION_PATH, models=["model-1", "model-2", "model-3"],
-           input=REVIEW_PROMPT, timeout=180, min_output_bytes=400)
+           input_file="${SESSION_PATH}/prompt.md", min_output_bytes=400)
 
       Always pass a shape check — `require_pattern` when the prompt mandates a format,
       `min_output_bytes` when it does not. Exit code 0 is not a success oracle: it is 0
       on API errors and on a model that answered with nothing useful.
 
-      The `team` tool runs all models in parallel internally and returns structured
-      per-model results. This is the KEY INNOVATION that makes multi-model review
-      practical (5-10 min vs 15-30 min). See Key Design Innovation section in knowledge base.
+      `run` STARTS the models and returns a slot map immediately — it does not wait and
+      it does not carry the reviews. Poll `team(mode="status", path=SESSION_PATH)` until
+      no slot in `models` has `state === "RUNNING"`, then read each review from
+      `response-<slot>.md`. There is no `timeout` parameter any more, and passing one is
+      silently ignored. Full procedure: `claudish:claudish-usage` → "The three-step
+      lifecycle". Requires claudish >= 8.0.0.
+
+      Running the models in parallel is what makes multi-model review practical
+      (5-10 min vs 15-30 min). See Key Design Innovation section in knowledge base.
     </parallel_execution_requirement>
 
     <tasks_requirement>
@@ -430,18 +435,22 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
 
         <step>If external models selected, launch ALL in PARALLEL via claudish `team` MCP tool:
 
-          Record start time, then call:
+          Write the reviewers' brief to `${SESSION_PATH}/reviews/prompt.md`:
           ```
-          team(mode="run", path="${SESSION_PATH}/reviews",
-            models=[...selected_external_models...],
-            input="Review content in ${SESSION_PATH}/content-review-context.md
+          Review content in ${SESSION_PATH}/content-review-context.md
           Write detailed review focusing on:
           1. E-E-A-T signals
           2. SEO compliance
           3. Readability
           4. Factual accuracy
-          5. Brand voice consistency",
-            timeout=180,
+          5. Brand voice consistency
+          ```
+
+          Record start time, then call:
+          ```
+          team(mode="run", path="${SESSION_PATH}/reviews",
+            models=[...selected_external_models...],
+            input_file="${SESSION_PATH}/reviews/prompt.md",
             min_output_bytes=400)
           ```
 
@@ -452,8 +461,17 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           a slot that returned nothing or a stub. Without it, exit code 0 is taken as
           success, and exit code 0 also happens on an API error.
 
-          The `team` tool runs all models in parallel and returns structured per-model results.
-          Write each model's output to ${SESSION_PATH}/reviews/{model_slug}-review.md.
+          **`run` returns before any model has answered.** It hands back a `slots` map
+          (model name → slot id) and nothing else. Poll
+          `team(mode="status", path="${SESSION_PATH}/reviews")` until no slot in `models`
+          has `state === "RUNNING"`. Bound that loop; read `idle_seconds_by_slot` together
+          with `activity_by_slot` before concluding a quiet slot is stuck, and never
+          auto-cancel one that is `tool_executing`.
+
+          Once settled, copy each slot's answer from
+          `${SESSION_PATH}/reviews/response-{slot}.md` to
+          `${SESSION_PATH}/reviews/{model_slug}-review.md`, using the `slots` map to pair
+          slot id with model. The rest of this command reads the `{model_slug}` files.
         </step>
 
         <step>Track completion and calculate durations:
@@ -466,6 +484,7 @@ skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, m
           # wrote ({model_slug}), not the raw model id — they differ whenever the id
           # contains a "/" or "@", and a mismatched path sends grep into the
           # `|| echo 0` branch, reporting a clean review for a file never opened.
+          # (written in the previous step from response-{slot}.md)
           REVIEW_FILE="${SESSION_PATH}/reviews/${model_slug}-review.md"
           ISSUES=$(grep -c "^### \|^## CRITICAL\|^## HIGH" "$REVIEW_FILE" || echo 0)
 
