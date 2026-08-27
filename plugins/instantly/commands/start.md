@@ -4,7 +4,7 @@ description: |
   Interactive entry point for Instantly cold outreach workflows.
   Routes users to appropriate commands based on their goals.
   Workflow: GOAL DISCOVERY -> REFINEMENT -> ROUTING -> EXECUTION
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Bash, Read
 skills: multimodel:task-orchestration
 ---
 

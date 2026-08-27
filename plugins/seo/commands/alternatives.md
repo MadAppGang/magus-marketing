@@ -1,7 +1,7 @@
 ---
 name: seo-alternatives
 description: Parallel content generation orchestrator using multiple AI models for A/B testing and hybrid optimization
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
 skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, multimodel:quality-gates, seo:content-brief
 ---
 

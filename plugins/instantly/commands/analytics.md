@@ -4,7 +4,7 @@ description: |
   Campaign performance analytics and reporting.
   Fetches data from Instantly MCP, calculates KPIs, identifies trends.
   Workflow: DATA FETCH -> METRICS CALCULATION -> PATTERN ANALYSIS -> REPORT
-allowed-tools:  Agent, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, AskUserQuestion
+allowed-tools:  Agent, Bash, Read, AskUserQuestion
 skills: instantly:campaign-metrics, multimodel:task-orchestration
 ---
 

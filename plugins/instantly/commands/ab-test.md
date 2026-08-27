@@ -4,7 +4,7 @@ description: |
   A/B testing workflow for email optimization.
   Design, run, and analyze A/B tests on subject lines, copy, and timing.
   Workflow: ANALYZE -> DESIGN TEST -> APPROVE -> IMPLEMENT -> MONITOR
-allowed-tools:  Agent, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Read
 skills: instantly:ab-testing-patterns, instantly:campaign-metrics, multimodel:task-orchestration
 ---
 

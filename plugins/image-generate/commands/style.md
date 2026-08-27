@@ -1,7 +1,7 @@
 ---
 name: image-style
 description: Manage image generation style templates (create, list, show, delete, update)
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: image-generate:style-format
 ---
 

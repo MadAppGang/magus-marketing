@@ -4,7 +4,7 @@ description: |
   Create new cold email sequences for Instantly campaigns.
   Interactive workflow for designing multi-step email sequences.
   Workflow: CONTEXT GATHERING -> SEQUENCE DESIGN -> REVIEW -> CREATE
-allowed-tools:  Agent, AskUserQuestion, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Read
 skills: instantly:sequence-best-practices, multimodel:task-orchestration
 ---
 

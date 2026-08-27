@@ -1,7 +1,7 @@
 ---
 name: seo-brief
 description: Generate comprehensive content brief from keyword with multi-agent orchestration
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, Glob, Grep
 skills: multimodel:multi-agent-coordination, seo:content-brief
 ---
 

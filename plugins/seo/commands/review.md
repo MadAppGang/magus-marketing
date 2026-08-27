@@ -1,7 +1,7 @@
 ---
 name: seo-review
 description: Multi-model content review orchestrator with parallel E-E-A-T validation and consensus analysis
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep, mcp__plugin_claudish__team, mcp__plugin_claudish__run_prompt
 skills: multimodel:multi-model-validation, multimodel:model-tracking-protocol, multimodel:quality-gates, seo:content-optimizer
 ---
 

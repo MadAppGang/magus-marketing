@@ -1,7 +1,7 @@
 ---
 name: seo-research
 description: Comprehensive keyword research with multi-agent orchestration for clusters and recommendations
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: multimodel:multi-agent-coordination, multimodel:quality-gates, multimodel:error-recovery, seo:quality-gate
 ---
 

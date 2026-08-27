@@ -1,7 +1,7 @@
 ---
 name: seo
 description: Interactive SEO workflow entry point that routes to appropriate commands or agents
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet
+allowed-tools:  Agent, AskUserQuestion, Bash, Read
 skills: multimodel:task-orchestration
 ---
 

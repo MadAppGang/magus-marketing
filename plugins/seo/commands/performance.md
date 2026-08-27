@@ -1,7 +1,7 @@
 ---
 name: seo-performance
 description: Content performance analysis combining GA4 and GSC data for optimization recommendations
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, WebFetch
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, WebFetch
 skills: seo:analytics-interpretation, seo:performance-correlation, seo:data-extraction-patterns, multimodel:multi-agent-coordination
 ---
 

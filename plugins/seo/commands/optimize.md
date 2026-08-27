@@ -1,7 +1,7 @@
 ---
 name: seo-optimize
 description: Optimize existing content for SEO with keyword density, meta tags, headings, and optional multi-model validation
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Write, Glob, Grep
 skills: multimodel:quality-gates, multimodel:multi-model-validation, seo:content-optimizer
 ---
 

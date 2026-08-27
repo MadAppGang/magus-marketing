@@ -1,7 +1,7 @@
 ---
 name: video-edit
 description: Main video editing orchestrator with multi-agent coordination
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:final-cut-pro
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: image-edit
 description: Edit existing images with natural language instructions
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: image-generate:image-providers
 ---
 

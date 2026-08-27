@@ -1,7 +1,7 @@
 ---
 name: transcribe
 description: Transcribe audio/video to SRT, VTT, JSON, or TXT formats
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: video-editing:transcription
 ---
 

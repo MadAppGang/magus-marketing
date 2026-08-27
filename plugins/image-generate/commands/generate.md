@@ -1,7 +1,7 @@
 ---
 name: generate
 description: Generate images from text prompts with optional styles and aspect ratios
-allowed-tools:  Agent, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep
+allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
 skills: image-generate:image-providers
 ---
 
