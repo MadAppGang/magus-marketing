@@ -4,6 +4,25 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [magus-marketing 2.0.3] - 2026-08-29
+
+### Changed
+
+- Channel version aligned with Marketplace 10.3.0: carries `claudish` v2.0.1, the runtime
+  dependency dual-published here for `seo`. No other marketing plugin changed.
+
+---
+
+## [claudish 2.0.1] - 2026-08-29
+
+### Changed
+
+- `claudish-usage` no longer narrates what earlier versions of the skill contained. The prohibitions
+  survive as present-tense rules — never document a provider/prefix/env-var table or a routing
+  troubleshooting guide here, because ownership sits with claudish and anything restated drifts.
+
+---
+
 ## [claudish 2.0.0] - 2026-08-28
 
 ### Changed

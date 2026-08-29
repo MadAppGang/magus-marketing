@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "Marketing and content plugins for Magus \u2014 SEO, cold email outreach, AI image generation, and video editing, plus the claudish runtime they build on. Source of truth: MadAppGang/magus-src. This is a lean dist repo.",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -15,7 +15,7 @@
       "name": "claudish",
       "source": "./plugins/claudish",
       "description": "MCP runtime for external AI models. Proxies OpenRouter, Ollama and LM Studio, runs blind team voting across models, manages async sessions, and streams channel notifications. Required by code-analysis, dev, multimodel, designer and seo.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -36,6 +36,11 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.0.1",
+          "date": "2026-08-29",
+          "summary": "Claudish-usage no longer narrates what earlier versions of the skill contained. The prohibition\u2026"
+        },
         {
           "version": "2.0.0",
           "date": "2026-08-28",
@@ -58,11 +63,6 @@
           "version": "1.0.1",
           "date": "2026-08-19",
           "summary": "Durable plugin description separated from release notes; stale agentdev references purged from\u2026"
-        },
-        {
-          "version": "1.0.0",
-          "date": "2026-05-09",
-          "summary": "Dedicated runtime plugin for the Claudish MCP server. Owns the command: \"claudish\", args:\u2026"
         }
       ]
     },
