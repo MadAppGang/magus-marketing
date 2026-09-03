@@ -4,6 +4,15 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [claudish 2.0.2] - 2026-09-03
+
+### Changed
+
+- **The `claudish-usage` Review row names `dev:reviewer` only**; the detective is no
+  longer offered as an alternative reviewer.
+
+---
+
 ## [magus-marketing 2.0.3] - 2026-08-29
 
 ### Changed

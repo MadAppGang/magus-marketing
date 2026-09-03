@@ -15,7 +15,7 @@
       "name": "claudish",
       "source": "./plugins/claudish",
       "description": "MCP runtime for external AI models. Proxies OpenRouter, Ollama and LM Studio, runs blind team voting across models, manages async sessions, and streams channel notifications. Required by code-analysis, dev, multimodel, designer and seo.",
-      "version": "2.0.1",
+      "version": "2.0.2",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -36,6 +36,14 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "2.0.2",
+          "date": "2026-09-03",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "The claudish-usage Review row names dev:reviewer only; the detective is no longer offered as an\u2026"
+        },
         {
           "version": "2.0.1",
           "date": "2026-08-29",
@@ -58,11 +66,6 @@
           "version": "1.0.2",
           "date": "2026-08-26",
           "summary": "The same manifest move, with no change to what each registers"
-        },
-        {
-          "version": "1.0.1",
-          "date": "2026-08-19",
-          "summary": "Durable plugin description separated from release notes; stale agentdev references purged from\u2026"
         }
       ]
     },
