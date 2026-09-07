@@ -4,6 +4,36 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [claudish 2.0.3] - 2026-09-07
+
+### Changed
+
+- **Route probing is no longer offered to the agent.** Routing is claudish's job: the
+  agent resolves a bare model name from the live catalog and hands it over, and never
+  needs to know which provider would serve it. The skill drops `preflight()` from its MCP
+  tool catalog, drops the `claudish --probe` row from the diagnostics table — so "exactly
+  four CLI invocations remain permitted" is now three — and rewrites "A model will not
+  route" to report through `report_error` and pick another model instead of inspecting
+  the routing chain.
+- The line banning "retry, probe, or fallback logic" in this repo is kept deliberately.
+  It pushes the same way.
+
+### Why
+
+A list of permitted-but-discouraged commands reads as a menu, not a fence. The same
+failure produced the upstream bug this change documents: claudish's own MCP tool
+descriptions instruct the agent to call `preflight` before `team`, and a tool description
+sits in the agent's context on every turn, so it functions as a standing instruction.
+Measured from transcripts (`tool_use` blocks only, tool listings excluded, re-measured
+2026-09-07): 13 real `preflight` invocations across 5 project directories, four of them
+ordinary work and one the session that implemented the upstream fix. Zero in magus — the
+magus skill was never the cause, and could not have been, since it only loads here. One
+`models-index` session spent ten claudish calls to choose a single model. The upstream fix is
+specced in `docs/plans/2026-09-04-claudish-preflight-not-the-agents-job.md` and belongs
+in the claudish repo; this release is the magus half.
+
+---
+
 ## [claudish 2.0.2] - 2026-09-03
 
 ### Changed
