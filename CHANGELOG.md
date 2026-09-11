@@ -4,6 +4,57 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [seo 3.1.0] - 2026-09-11
+
+### Changed
+
+- **All five `seo` subagents now say what the caller must hand over, and return a fixed
+  completion template with an Obstacles Encountered section.**
+- `seo:writer` requires a content brief only for a new article or a full rewrite. A narrow
+  request (a meta description, a snippet or introduction rewrite, internal links, a hybrid
+  paragraph) proceeds without one, and article-only scores read N/A instead of being
+  invented. It no longer invents first-hand experience or claims a source was checked live.
+- `seo:data-analyst` reports where it wrote its report, marks causes the data does not
+  carry as hypotheses, and no longer preloads `seo:data-extraction-patterns`, whose MCP call
+  recipes name tools the agent does not have.
+
+---
+
+## [instantly 2.1.0] - 2026-09-11
+
+### Changed
+
+- **`campaign-analyst`, `outreach-optimizer` and `sequence-builder` now say what the caller
+  must hand over, and return a fixed completion template with an Obstacles Encountered
+  section.** `outreach-optimizer` proposes changes and never applies them.
+- `campaign-analyst` no longer preloads `multimodel:task-orchestration`, and
+  `outreach-optimizer` no longer preloads `multimodel:multi-model-validation`. A preloaded
+  skill binds the agent like its own text, and those two instructed task tools and
+  `AskUserQuestion`, which the agents do not have.
+
+---
+
+## [video-editing 1.3.0] - 2026-09-11
+
+### Changed
+
+- **`timeline-builder`, `transcriber` and `video-processor` now say what the caller must
+  hand over, and return a fixed completion template with an Obstacles Encountered section.**
+
+---
+
+## [image-generate 3.2.0] - 2026-09-11
+
+### Changed
+
+- **`image-generator` and `style-manager` now say what the caller must hand over, and
+  return a fixed completion template with an Obstacles Encountered section.**
+- In the `style-format` skill, a suspicious pattern in a style now blocks creation instead of
+  only warning. `style-manager` returns `NEEDS CONFIRMATION` with the flagged content quoted,
+  and writes the file only on a re-dispatch that says `CONFIRMED:`.
+
+---
+
 ## [claudish 2.0.3] - 2026-09-07
 
 ### Changed

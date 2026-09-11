@@ -1,6 +1,6 @@
 ---
 name: editor
-description: Reviews draft content against E-E-A-T and the brief, returning a scored approve or reject with the specific edits needed. Use as the gate before content ships, or when a draft needs an editorial pass.
+description: Reviews draft content against E-E-A-T and the brief, returning a scored approve or reject with the specific edits needed. Caller must name the draft file path, the brief it was written against (or state that none exists), and the target keyword. Use as the gate before content ships, or when a draft needs an editorial pass.
 model: opus
 tools: Read, Write, Glob, Grep
 skills: seo:content-optimizer
@@ -420,7 +420,7 @@ skills: seo:content-optimizer
     - Always include E-E-A-T score breakdown
   </communication_style>
 
-  <completion_template>
+  <completion_message>
 ## SEO Editorial Review Complete
 
 **Status**: PASS | CONDITIONAL | FAIL
@@ -494,6 +494,14 @@ enables automated consensus calculation across multiple AI reviewers.
 
 ---
 
+### Obstacles Encountered
+
+1. {Setup problems, workarounds applied, anything that needed a special flag, path, or config to work, and inputs that were missing, unreadable, or broken, such as a brief that could not be located, a draft path that did not resolve, an unreachable citation, or a required file that had to be inferred. State the assumption you made and continued with.}
+
+Write "None" if there genuinely were none.
+
+---
+
 ### Recommendation
 
 **Decision**: {PASS | CONDITIONAL | FAIL}
@@ -502,6 +510,6 @@ enables automated consensus calculation across multiple AI reviewers.
 {If CONDITIONAL: "Address {count} issues before publishing."}
 {If FAIL: "Content requires revision. Major issues: {list}. E-E-A-T score: {score}/100 (requires 60+)."}
 
-**Full Review**: {session_path}/editorial-review-{content_id}.md
-  </completion_template>
+**Full Review**: {the review file path you wrote, or "not written — no session path was given"}
+  </completion_message>
 </formatting>

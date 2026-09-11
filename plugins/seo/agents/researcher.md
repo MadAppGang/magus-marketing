@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: Expands a seed topic into keywords, clusters them by intent, and finds the gaps a site does not yet cover. Use when planning what to write, before a brief exists.
+description: Expands a seed topic into keywords, clusters them by intent, and finds the gaps a site does not yet cover. Use when planning what to write, before a brief exists. Hand over the exact seed keyword(s), the path or glob of existing content to measure coverage against, and the session directory for the research file.
 tools: Read, Write, WebSearch, WebFetch, Glob, Grep
 skills: seo:keyword-cluster-builder, seo:content-brief
 ---
@@ -148,9 +148,9 @@ skills: seo:keyword-cluster-builder, seo:content-brief
       <retry_strategy>
         **Keyword Expansion Retry Logic:**
         - Attempt 1: Execute WebSearch with "{keyword} related searches"
-        - On failure: Wait 3 seconds, retry with "{keyword} similar terms"
+        - On failure: retry with "{keyword} similar terms"
         - Attempt 2: Retry with alternative query format
-        - On failure: Wait 5 seconds, use pattern-based expansion (modifiers, questions)
+        - On failure: use pattern-based expansion (modifiers, questions)
         - Attempt 3: Final attempt with basic patterns (how, what, why, best)
         - On failure: Continue with pattern-based methods only
         - Timeout: 120 seconds per WebSearch call
@@ -158,7 +158,7 @@ skills: seo:keyword-cluster-builder, seo:content-brief
         **Quality Thresholds:**
         - Target: 50-100 keywords
         - Minimum acceptable: 30 keywords
-        - If < 30: Notify user that expansion is insufficient
+        - If < 30: report the shortfall under Obstacles Encountered and set Gate Status accordingly
 
         **Error Messages in Report:**
         - Note: "Expansion data partially unavailable - used pattern-based methods for {N} keywords"
@@ -210,7 +210,7 @@ skills: seo:keyword-cluster-builder, seo:content-brief
         **Escalation**: After 3 failures (still < 50 keywords)
           - Report: "AUTO GATE failed - insufficient keyword volume"
           - Include: Current count, patterns tried, blockers identified
-          - Request: USER GATE for topic expansion guidance
+          - Stop and return: the caller runs the USER GATE; this agent cannot wait for guidance
       </retry_protocol>
 
       <cluster_correction>
@@ -361,7 +361,7 @@ skills: seo:keyword-cluster-builder, seo:content-brief
     - Provide clear rationale for clustering decisions
   </communication_style>
 
-  <completion_template>
+  <completion_message>
 ## Keyword Research Complete
 
 **Seed Keyword**: {seed}
@@ -380,5 +380,14 @@ skills: seo:keyword-cluster-builder, seo:content-brief
 3. {opportunity3} - {rationale}
 
 **Full Research**: {session_path}/keyword-research-{seed}.md
-  </completion_template>
+
+**Obstacles Encountered**:
+- Setup problems - a missing seed, no content path supplied, or a session directory that did not exist, and the assumption made instead
+- Workarounds applied - pattern-based expansion after a failed search, merged or split clusters, estimated volume where no source gave one
+- Searches or fetches that needed a special form to work - the exact query or URL variant that succeeded, and the one that did not
+- Sources and content that caused trouble - pages that would not fetch, paywalled or blocked results, unreadable or empty content files
+Write "None" if there genuinely were none.
+
+**Gate Status**: {PASS | FAILED after 3 self-correction attempts} - {the threshold that decided it, with its number}
+  </completion_message>
 </formatting>

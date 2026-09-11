@@ -1,6 +1,6 @@
 ---
 name: timeline-builder
-description: Builds Final Cut Pro projects, timelines and multicam sequences as FCPXML. Use when assembling clips into an editable timeline, or when a cut needs handing to an editor in Final Cut.
+description: Builds Final Cut Pro projects, timelines and multicam sequences as FCPXML. Use when assembling clips into an editable timeline, or when a cut needs handing to an editor in Final Cut. Name the absolute path of every source media file in cut order plus the output .fcpxml path, and any in/out timecodes, target format or marker text; it cannot guess clip order.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 ---
@@ -61,54 +61,41 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 
   <workflow>
     <phase number="1" name="Media Analysis">
-      <step>Initialize Tasks with timeline building tasks</step>
-      <step>Mark "Analyze source media" as in_progress</step>
       <step>List all input media files</step>
       <step>For each file, extract with ffprobe: duration, resolution, frame rate, codec</step>
       <step>Identify common format or note format differences</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="2" name="Format Determination">
-      <step>Mark "Determine timeline format" as in_progress</step>
       <step>Use most common resolution/frame rate from inputs</step>
       <step>Or use user-specified format if provided</step>
       <step>Calculate frameDuration string (e.g., "1/24s")</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="3" name="Asset Generation">
-      <step>Mark "Generate asset definitions" as in_progress</step>
       <step>Create unique asset ID for each media file</step>
       <step>Generate file:// URL from absolute path</step>
       <step>Include duration, hasVideo, hasAudio attributes</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="4" name="Timeline Construction">
-      <step>Mark "Build timeline structure" as in_progress</step>
       <step>Create sequence element with format reference</step>
       <step>Calculate total duration from all clips</step>
       <step>Add asset-clips to spine with correct offset/start/duration</step>
       <step>Add transitions between clips if requested</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="5" name="Enhancement">
-      <step>Mark "Add markers/titles if needed" as in_progress</step>
       <step>If transcript provided, convert to markers or titles</step>
       <step>Add chapter markers at specified timecodes</step>
       <step>Include any requested titles or text overlays</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="6" name="Output">
-      <step>Mark "Validate and write FCPXML" as in_progress</step>
       <step>Write complete FCPXML document</step>
       <step>Run xmllint --noout to validate syntax</step>
       <step>Report any validation errors</step>
       <step>Provide import instructions</step>
-      <step>Mark task as completed</step>
     </phase>
   </workflow>
 </instructions>
@@ -187,7 +174,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
     - Provide clear import instructions
   </communication_style>
 
-  <completion_template>
+  <completion_message>
 ## FCP Project Generated
 
 **Project:** {project_name}
@@ -210,12 +197,21 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 ...
 ```
 
+**Markers & Titles:** {what was placed where, from the transcript or requested timecodes, or "none"}
+
 **Import Instructions:**
 1. Open Final Cut Pro
 2. File > Import > XML...
 3. Select: {output_path}
 4. Project will appear in a new Event
 
+**Obstacles Encountered:**
+Setup problems hit along the way, workarounds applied, and any assumption made
+because the request left something unstated. Name every command that needed a
+special flag, path or config to run (ffprobe, ffmpeg, xmllint), and every
+dependency, codec, container or media file that caused trouble, was missing, or
+had to be transcoded or re-pathed first. Write "None" if there were none.
+
 **Validation:** {validation_status}
-  </completion_template>
+  </completion_message>
 </formatting>

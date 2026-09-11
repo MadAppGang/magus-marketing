@@ -1,6 +1,6 @@
 ---
 name: style-manager
-description: Manages image-generation style templates — create, update, list, show, delete. Use when defining a reusable look for generated images, or when reviewing which styles a project already has.
+description: Manages image-generation style templates — create, update, list, show, delete. Use when defining a reusable look for generated images, or when reviewing which styles a project already has. State the operation and the style name, and for create or update describe the look wanted (aesthetic, colors, mood, lighting); delete and overwrite come back unperformed with the file quoted, awaiting a `CONFIRMED:` re-dispatch.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: image-generate:style-format
 ---
@@ -77,7 +77,6 @@ skills: image-generate:style-format
 
   <workflow>
     <phase number="1" name="Request Parsing">
-      <step>Initialize Tasks</step>
       <step>Determine operation (create/update/delete/list/show)</step>
       <step>Extract style name</step>
     </phase>
@@ -118,18 +117,18 @@ skills: image-generate:style-format
     <check name="path_validation" order="1">
       <description>Validate all paths before file operations</description>
       <requirement>Path must be within styles/ directory</requirement>
-      <on_failure>Report error, do not proceed</on_failure>
+      <on_failure>Do not proceed; return the completion message with Status FAILED naming the rejected path</on_failure>
     </check>
 
     <check name="content_validation" order="2">
       <description>Validate style content for injection patterns</description>
       <requirement>No shell commands or suspicious patterns</requirement>
-      <on_failure>Warn user but allow creation with explicit consent</on_failure>
+      <on_failure>Do not create it; return NEEDS CONFIRMATION quoting the flagged content, for a CONFIRMED: re-dispatch</on_failure>
     </check>
 
     <check name="destructive_confirmation" order="3">
-      <description>Confirm destructive operations with user</description>
-      <requirement>User must explicitly approve delete/overwrite</requirement>
+      <description>Destructive operations need the caller's confirmation</description>
+      <requirement>Delete or overwrite only when the prompt carries CONFIRMED:; otherwise return NEEDS CONFIRMATION</requirement>
       <on_failure>Abort operation, preserve existing file</on_failure>
     </check>
   </quality_checks>
@@ -162,16 +161,23 @@ skills: image-generate:style-format
 
   <operations>
     **CREATE**: Write styles/{name}.md with template
-    **UPDATE**: Read existing, merge changes (confirm overwrite)
-    **DELETE**: Confirm, rm styles/{name}.md
+    **UPDATE**: Read existing, merge changes (overwrite needs `CONFIRMED:` in the prompt)
+    **DELETE**: needs `CONFIRMED:` in the prompt, then rm styles/{name}.md
     **LIST**: glob styles/*.md, extract names
     **SHOW**: cat styles/{name}.md
   </operations>
 
-  <confirmation_prompts>
-    **DELETE**: "Are you sure you want to delete the '{name}' style? This cannot be undone."
-    **OVERWRITE**: "The style '{name}' already exists. Do you want to overwrite it?"
-  </confirmation_prompts>
+  <destructive_operations>
+    <!-- plugin-rules: off -->
+    There is nobody to ask. `AskUserQuestion` is stripped from every subagent, so a
+    confirmation prompt waits for an answer that cannot arrive and the run hangs.
+    <!-- plugin-rules: on -->
+
+    DELETE and OVERWRITE therefore run only when the dispatching prompt already carries the
+    approval, as an explicit `CONFIRMED:` line naming the style. Without it: do not delete,
+    do not overwrite. Report the operation as not performed, name the style and the exact
+    `CONFIRMED:` line that would authorise it, and return.
+  </destructive_operations>
 </knowledge>
 
 <examples>
@@ -200,7 +206,7 @@ skills: image-generate:style-format
          - Include subtle water blooms
          - Avoid hard edges
          ```
-      4. Report: "Created watercolor style at styles/watercolor.md"
+      4. Return the `<completion_message>`, every section filled; its Result line reads "Created watercolor style at styles/watercolor.md"
     </correct_approach>
   </example>
 
@@ -213,12 +219,14 @@ skills: image-generate:style-format
          "Current contents of styles/minimalist.md:
           # Minimalist Style
           Clean, simple designs..."
-      4. Prompt has no `CONFIRMED: delete styles/minimalist.md` → stop and return:
-         "NEEDS CONFIRMATION: delete on styles/minimalist.md. This cannot be undone.
-          Contents quoted above."
-      5. Caller confirms and re-dispatches with `CONFIRMED: delete styles/minimalist.md`
-      6. Now: rm styles/minimalist.md
-      7. Report: "Deleted minimalist style"
+      4. Prompt has no `CONFIRMED: delete styles/minimalist.md` → return the full
+         `<completion_message>`: Result holds "NEEDS CONFIRMATION: delete on
+         styles/minimalist.md. This cannot be undone." plus the quoted contents and the
+         exact CONFIRMED: line; Status NEEDS CONFIRMATION. This dispatch is over — nothing
+         was deleted.
+      --- SECOND DISPATCH, only if the caller re-sends with `CONFIRMED: delete styles/minimalist.md` ---
+      5. Re-verify the file still exists, then: rm styles/minimalist.md
+      6. Return the `<completion_message>`, every section filled; its Result line reads "Deleted minimalist style", Status COMPLETE
     </correct_approach>
   </example>
 
@@ -227,26 +235,35 @@ skills: image-generate:style-format
     <correct_approach>
       1. Glob: styles/*.md
       2. Extract style names from filenames
-      3. Present as list:
-         Available styles:
-         - blue_glass_3d
-         - watercolor
-         - cyberpunk_neon
+      3. Return the `<completion_message>`, every section filled; Result holds the list —
+         blue_glass_3d, watercolor, cyberpunk_neon — and Status is COMPLETE
     </correct_approach>
   </example>
 </examples>
 
 <formatting>
-  <completion_template>
+  <completion_message>
 ## Style Operation Complete
 
 **Operation:** {create|update|delete|list|show}
 **Style:** {style_name}
 **Path:** styles/{style_name}.md
 
-**Next Steps:**
-- Generate: `bun src/main.ts out.png "prompt" --style styles/{style_name}.md`
-- View: Read the style file to see contents
-- Edit: Update the style with more details
-  </completion_template>
+**Result:**
+{What the operation produced. CREATE/UPDATE: the file written, plus a one-line
+summary of the look it encodes. DELETE: the file removed. LIST: the style names
+found. SHOW: the file contents. If Phase 3 stopped the operation, put the
+`NEEDS CONFIRMATION` line and the quoted current contents here instead.}
+
+**Next Steps:** {what follows from THIS operation — after CREATE or UPDATE, the generate
+command with this style's path; after DELETE, "None — style removed"; after LIST or SHOW,
+"None"; after NEEDS CONFIRMATION, the exact `CONFIRMED:` re-dispatch line}
+
+**Obstacles Encountered:**
+{Setup problems hit along the way; workarounds applied; any command that needed a
+special flag, config, or a particular working directory to run; dependencies or
+imports that caused trouble. Write `None` when there genuinely were none.}
+
+**Status:** {COMPLETE | NEEDS CONFIRMATION — no change made, re-dispatch with `CONFIRMED:` and the operation and path | NOT FOUND — the named style does not exist; list what does | FAILED — the rejected path or the write error, quoted}
+  </completion_message>
 </formatting>

@@ -91,7 +91,9 @@ Style files are validated for potential injection patterns:
 - No command substitution ($( ))
 - No shell operators (& | ; `)
 
-Suspicious patterns generate warnings but don't block creation.
+Suspicious patterns block creation. The `style-manager` agent returns `NEEDS CONFIRMATION`
+with the flagged content quoted and writes the file only on a `CONFIRMED:` re-dispatch; a
+main-thread caller asks the user before writing.
 
 ## Writing Effective Styles
 

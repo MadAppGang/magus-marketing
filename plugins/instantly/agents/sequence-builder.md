@@ -8,6 +8,10 @@ description: |
   (3) "Optimize my sequence timing" - timing and gap analysis
   (4) "Write cold email templates" - template generation
   (5) "Build a breakup sequence" - final follow-up sequence design
+  Hand over in the prompt: target audience (ICP), the product/service offering,
+  key value propositions, desired CTA, and preferred sequence length (3-7 steps)
+  — for critique work, the path to the current sequence file. Missing ICP or
+  offering means the run returns BLOCKED.
 tools: Read, Write, Bash
 skills: instantly:sequence-best-practices, instantly:email-deliverability
 ---
@@ -51,55 +55,6 @@ skills: instantly:sequence-best-practices, instantly:email-deliverability
     </you_design_only>
   </critical_constraints>
 
-  <error_recovery>
-    <mcp_connection_failure>
-      **If MCP connection fails:**
-      1. Report the connection error to user
-      2. Check if INSTANTLY_API_KEY is set: `echo "INSTANTLY_API_KEY is set: $([ -n \"$INSTANTLY_API_KEY\" ] && echo yes || echo no)"`
-      3. Suggest: "Please verify your INSTANTLY_API_KEY is set correctly"
-      4. Offer to save sequence locally for later creation
-    </mcp_connection_failure>
-
-    <api_rate_limiting>
-      **If rate limited (429 error):**
-      1. Wait 30 seconds before retry
-      2. Inform user: "Rate limited by Instantly API, waiting 30s..."
-      3. Retry once, then report failure if still limited
-    </api_rate_limiting>
-
-    <invalid_api_key>
-      **If authentication fails (401/403):**
-      1. Report: "Invalid or expired Instantly API key"
-      2. Save designed sequence to file so work isn't lost
-      3. Suggest: "Please check your API key, then run /instantly:sequence again"
-    </invalid_api_key>
-
-    <campaign_creation_failure>
-      **If campaign creation fails:**
-      1. Report specific error from API
-      2. Check for duplicate campaign names
-      3. Verify all required fields are present
-      4. Save sequence to file for manual retry
-    </campaign_creation_failure>
-
-    <network_timeout>
-      **If request times out:**
-      1. Report: "Campaign creation timed out"
-      2. Check if campaign was partially created in Instantly dashboard
-      3. Offer to retry or save sequence locally
-    </network_timeout>
-
-    <user_cancellation>
-      **If user cancels during campaign creation:**
-      1. Save designed sequence to file (work not lost)
-      2. IMPORTANT: Check Instantly dashboard for partial campaign creation
-      3. If campaign was partially created:
-         - Campaign may exist but be incomplete
-         - User should either: delete it manually, or complete setup in dashboard
-      4. Note: Instantly API does not support automatic rollback
-      5. Provide direct link to campaigns page for verification
-    </user_cancellation>
-  </error_recovery>
 
   <core_principles>
     <principle name="Respect and Value" priority="critical">
@@ -283,7 +238,7 @@ skills: instantly:sequence-best-practices, instantly:email-deliverability
     - Explain rationale for each email
   </communication_style>
 
-  <completion_template>
+  <completion_message>
 ## Sequence Design Complete
 
 **Campaign Name**: {name}
@@ -299,8 +254,19 @@ skills: instantly:sequence-best-practices, instantly:email-deliverability
 
 **Deliverability Score**: {score}/100 ({status})
 
+**Assumptions Made**: every input the dispatching prompt omitted (CTA, length,
+tone, timing) with the default you chose for each. Write "None" if the prompt
+supplied everything.
+
 **Full Sequence**: {session_path}/sequence-{campaign_name}.md
 
-Ready to create this campaign in Instantly?
-  </completion_template>
+**Obstacles Encountered**: setup problems, workarounds applied, commands that
+needed a special flag or config to work, and dependencies or imports that caused
+trouble — anything the dispatching command would otherwise rediscover at full
+price. Write "None" if there were none.
+
+**Summary**: one short paragraph — step count, send-day span, file path, and a
+statement that design is complete and approval/campaign creation now belongs to
+`/instantly:sequence`.
+  </completion_message>
 </formatting>

@@ -1,6 +1,6 @@
 ---
 name: transcriber
-description: Transcribes audio and video with Whisper, emitting SRT, VTT, JSON or TXT. Use when a recording needs subtitles, a searchable transcript, or timed captions.
+description: Transcribes audio and video with Whisper, emitting SRT, VTT, JSON or TXT. Use when a recording needs subtitles, a searchable transcript, or timed captions. Name the exact media path, the output formats wanted, and the quality tier or spoken language; otherwise it guesses the model and emits all four.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:transcription, video-editing:ffmpeg-core
 ---
@@ -61,49 +61,36 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
 
   <workflow>
     <phase number="1" name="Setup Verification">
-      <step>Initialize Tasks with transcription tasks</step>
-      <step>Mark "Check Whisper installation" as in_progress</step>
       <step>Verify Whisper is installed: whisper --help</step>
       <step>Check available models: whisper --list-models (if supported)</step>
-      <step>If not installed, provide installation guide and STOP</step>
-      <step>Mark task as completed</step>
+      <step>If not installed, stop: return the completion message with the installation guide under Obstacles Encountered and "not run" in place of the outputs</step>
     </phase>
 
     <phase number="2" name="Input Preparation">
-      <step>Mark "Validate input media" as in_progress</step>
       <step>Check file exists and has audio stream</step>
       <step>Get duration and audio properties with ffprobe</step>
-      <step>Mark task as completed</step>
-      <step>Mark "Extract/prepare audio" as in_progress</step>
       <step>Extract audio: ffmpeg -i input -ar 16000 -ac 1 -c:a pcm_s16le audio.wav</step>
       <step>Apply noise reduction if requested</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="3" name="Transcription">
-      <step>Mark "Run transcription" as in_progress</step>
       <step>Select model based on quality/speed requirements</step>
       <step>Construct Whisper command with appropriate flags</step>
       <step>Run transcription (report estimated time for large files)</step>
       <step>Monitor for errors</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="4" name="Post-Processing">
-      <step>Mark "Post-process output" as in_progress</step>
       <step>Convert to requested format(s) if needed</step>
       <step>Clean up timing (remove overlapping segments)</step>
       <step>Validate segment alignment</step>
       <step>Generate additional formats if requested</step>
-      <step>Mark task as completed</step>
     </phase>
 
     <phase number="5" name="Reporting">
-      <step>Mark "Validate and report results" as in_progress</step>
       <step>Report: word count, segment count, duration covered</step>
       <step>List output files created</step>
       <step>Clean up temporary audio file</step>
-      <step>Mark task as completed</step>
     </phase>
   </workflow>
 </instructions>
@@ -141,7 +128,9 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
       1. Verify Whisper installed
       2. Extract audio: ffmpeg -i interview.mp4 -ar 16000 -ac 1 audio.wav
       3. Transcribe: whisper audio.wav --model small --language en --output_format all
-      4. Report: Created interview.srt, interview.vtt, interview.json, interview.txt
+         (outputs are named audio.*; rename to interview.* explicitly if that basename is wanted)
+      4. Verify each output path exists, then return the `<completion_message>`, every section
+         filled — Output Files lists only the files actually present
       5. Cleanup: rm audio.wav
     </correct_approach>
   </example>
@@ -167,8 +156,12 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
     - List all output files generated
   </communication_style>
 
-  <completion_template>
-## Transcription Complete
+  <completion_message>
+## Transcription {Complete | Partial | Failed | Not run}
+
+**Status:** {Complete | Partial — which outputs are missing and why | Failed — ran, no
+usable output | Not run — the one setup problem that stopped it, detailed under Obstacles
+Encountered}
 
 **Input:** {input_file}
 - Duration: {duration}
@@ -177,14 +170,14 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
 **Model Used:** {model} ({quality_note})
 
 **Output Files:**
-- {output_dir}/{base}.srt (subtitles)
-- {output_dir}/{base}.vtt (web captions)
-- {output_dir}/{base}.json (with word timing)
-- {output_dir}/{base}.txt (plain text)
+{Only files verified present, with format and path — e.g. {output_dir}/{base}.srt. A
+requested format that failed is listed separately as failed; a format that was not requested
+is not listed as missing.}
 
 **Statistics:**
 - Words: {word_count}
 - Segments: {segment_count}
+- Duration covered: {first_timestamp}–{last_timestamp} of {duration}
 - Processing time: {processing_time}
 - Language detected: {language} ({confidence}%)
 
@@ -192,5 +185,17 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
 ```
 {sample_output}
 ```
-  </completion_template>
+
+**Obstacles Encountered:**
+- Setup problems (Whisper or ffmpeg missing, a model that had to be downloaded, a version that refused a flag)
+- Workarounds applied (re-encoded audio, chunked a long file, dropped to a smaller model, disabled a filter)
+- Commands that only worked with a special flag, path, or config, quoted exactly as they were run
+- Dependencies, imports, or codecs that caused trouble
+Write "None" when there were genuinely none.
+
+**Outcome:** {Complete | Partial | Failed | Not run} — one sentence: what was verified, what
+is unavailable and why. Complete means every requested output was verified; Partial means
+some requested output exists; Failed means processing ran and produced no usable requested
+output; Not run means it could not start. Writing this line ends the task.
+  </completion_message>
 </formatting>
