@@ -1,10 +1,8 @@
 ---
 name: style-format
-description: Style template format specification. Single markdown files that describe artistic direction.
+description: Specifies the markdown format of image style templates in styles/. Use when creating, updating or validating a style file, or when the user mentions style templates, art direction, or a reusable look.
 user-invocable: false
 ---
-plugin: image-generate
-updated: 2026-01-20
 
 # Style Format Specification
 
@@ -68,11 +66,13 @@ A photorealistic 3D render with blue glass material. Objects should have:
 
 ```bash
 # Apply style to generation
-uv run python main.py out.png "gear icon" --style styles/glass.md
+bun src/main.ts out.png "gear icon" --style styles/glass.md
 
 # Combine with reference
-uv run python main.py out.png "cube" --style styles/glass.md --ref prev.png
+bun src/main.ts out.png "cube" --style styles/glass.md --ref prev.png
 ```
+
+From Claude Code: `/image:generate "gear icon" --style glass`.
 
 ## Style vs Reference
 
@@ -91,9 +91,8 @@ Style files are validated for potential injection patterns:
 - No command substitution ($( ))
 - No shell operators (& | ; `)
 
-Suspicious patterns block creation. The `style-manager` agent returns `NEEDS CONFIRMATION`
-with the flagged content quoted and writes the file only on a `CONFIRMED:` re-dispatch; a
-main-thread caller asks the user before writing.
+Suspicious patterns block creation. `/image:style` quotes the flagged line and asks the
+user to rephrase before it writes anything.
 
 ## Writing Effective Styles
 

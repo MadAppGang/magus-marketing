@@ -1,11 +1,11 @@
 {
-  "name": "@magus/image-generate",
+  "name": "@magus/image",
   "version": "3.0.0",
-  "description": "Provider-agnostic AI image generation — Nano Banana 2, GPT Image 2, Seedream",
+  "description": "Provider-agnostic AI image generation and editing over a pinned model registry",
   "type": "module",
   "main": "src/main.ts",
   "bin": {
-    "image-generate": "./src/main.ts"
+    "image": "./src/main.ts"
   },
   "scripts": {
     "start": "bun src/main.ts",

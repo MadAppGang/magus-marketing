@@ -25,7 +25,7 @@ const CATALOG_URL =
 
 /** Same 24h TTL claudish uses for all Firebase-derived data. One knob. */
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
-const CACHE_PATH = join(tmpdir(), "magus-image-generate", "image-catalog.json");
+const CACHE_PATH = join(tmpdir(), "magus-image", "image-catalog.json");
 
 interface CatalogEntry {
   modelId: string;

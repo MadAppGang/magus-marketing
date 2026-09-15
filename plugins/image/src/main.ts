@@ -1,14 +1,14 @@
 #!/usr/bin/env bun
 /**
- * image-generate — provider-agnostic AI image generation.
+ * image — provider-agnostic AI image generation and editing.
  *
  * Usage:
- *   image-generate output.png "prompt"
- *   image-generate output.png "prompt1" "prompt2" --style styles/glass.md
- *   image-generate output.png "edit instruction" --edit input.png
- *   image-generate output.png "prompt" --ref reference.png --aspect 16:9
- *   image-generate output.png "prompt" --model seedream
- *   image-generate --models
+ *   bun src/main.ts output.png "prompt"
+ *   bun src/main.ts output.png "prompt1" "prompt2" --style styles/glass.md
+ *   bun src/main.ts output.png "edit instruction" --edit input.png
+ *   bun src/main.ts output.png "prompt" --ref reference.png --aspect 16:9
+ *   bun src/main.ts output.png "prompt" --model seedream
+ *   bun src/main.ts --models
  */
 
 import { generate, ErrorCode, ASPECT_RATIOS } from "./generate.js";
@@ -18,11 +18,11 @@ import { checkStaleness, formatReport } from "./staleness.js";
 
 function printHelp(): void {
   console.log(`
-image-generate — AI image generation across providers
+image — AI image generation and editing across providers
 
 USAGE
-  image-generate <output> <prompt...> [options]
-  image-generate --models
+  bun src/main.ts <output> <prompt...> [options]
+  bun src/main.ts --models
 
 OPTIONS
   --style <file>       Markdown style file prepended to every prompt

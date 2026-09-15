@@ -4,6 +4,37 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [image 4.0.0] - 2026-09-15
+
+### Changed
+
+- **BREAKING — the plugin is renamed from `image-generate` to `image`**, and its commands are
+  `/image:generate`, `/image:edit` (was `image-edit`) and `/image:style` (was `image-style`).
+- **BREAKING — both agents are deleted; the commands do the work.** `image-generator` made a
+  single `bun src/main.ts` call after a preflight the command had already performed.
+  `style-manager` did file operations the command can do with `Write`, and its
+  confirm-by-redispatch protocol existed only because a subagent cannot ask a question — the
+  command asks directly.
+- Stale text fixed: three examples told the agent to run `main.py`, which has never existed
+  in this plugin, and the preflight checked `GEMINI_API_KEY` alone although five models ship
+  across three providers. Readiness is now per model, via `--models`.
+
+### Migration notes
+
+Replace `image-generate@magus-marketing` with `image@magus-marketing`. `/image-generate:edit`
+becomes `/image:edit` and `/image-generate:style` becomes `/image:style`.
+
+---
+
+## [magus-marketing 4.0.0] - 2026-09-15
+
+### Changed
+
+- **BREAKING — `image-generate` ships as `image`.** The channel carries `image` and
+  `video-editing`.
+
+---
+
 ## [magus-marketing 3.0.0] - 2026-09-12
 
 ### Removed

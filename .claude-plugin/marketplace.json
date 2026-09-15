@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "Marketing and content plugins for Magus \u2014 AI image generation and video editing. Source of truth: MadAppGang/magus-src. This is a lean dist repo.",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -70,10 +70,10 @@
       ]
     },
     {
-      "name": "image-generate",
-      "source": "./plugins/image-generate",
-      "description": "Provider-agnostic AI image generation and editing. One interface over Nano Banana Pro, 2 and 2 Lite (Google), GPT Image 2 (OpenAI) and Seedream (ByteDance), with per-model sizing and a background advisory when the pinned models go stale.",
-      "version": "3.2.0",
+      "name": "image",
+      "source": "./plugins/image",
+      "description": "Provider-agnostic AI image generation and editing over a pinned model registry: Google, OpenAI and ByteDance models behind one CLI, with per-model sizing, markdown style templates, and a background advisory when a pinned model goes stale.",
+      "version": "4.0.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -94,22 +94,20 @@
       "strict": true,
       "releases": [
         {
+          "version": "4.0.0",
+          "date": "2026-09-15",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "BREAKING \u2014 the plugin is renamed from image-generate to image, and its commands are\u2026"
+        },
+        {
           "version": "3.2.0",
           "date": "2026-09-11",
           "kinds": [
             "Changed"
           ],
           "summary": "image-generator and style-manager now say what the caller must hand over, and return a fixed\u2026"
-        },
-        {
-          "version": "3.1.1",
-          "date": "2026-08-26",
-          "summary": "The same manifest move, with no change to what each registers"
-        },
-        {
-          "version": "3.1.0",
-          "date": "2026-08-18",
-          "summary": "The style command dispatches its subagent explicitly and passes a CONFIRMED: <op> <path> token,\u2026"
         },
         {
           "version": "3.0.0",
