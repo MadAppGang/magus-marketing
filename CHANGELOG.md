@@ -4,6 +4,15 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [image 4.0.1] - 2026-09-23
+
+### Added
+
+- `/image:style` shows `create <name> | list | show <name> | update <name> | delete <name>`
+  as an argument hint after the command name as you type it.
+
+---
+
 ## [image 4.0.0] - 2026-09-15
 
 ### Changed
