@@ -2,7 +2,6 @@
 name: transcribe
 description: Transcribe audio/video to SRT, VTT, JSON, or TXT formats
 allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
-skills: video-editing:transcription
 ---
 
 <role>
@@ -35,15 +34,6 @@ skills: video-editing:transcription
       Before starting, verify Whisper is installed.
       If not, provide installation instructions and ask user to install.
     </dependency_check>
-
-    <todowrite_requirement>
-      Track workflow with Tasks:
-      1. Check Whisper installation
-      2. Validate input files
-      3. Determine quality settings
-      4. Delegate to transcriber
-      5. Report results
-    </todowrite_requirement>
   </critical_constraints>
 
   <workflow>
@@ -111,7 +101,8 @@ skills: video-editing:transcription
       <steps>
         <step>For each file, delegate to transcriber:
           Agent: video-editing:transcriber
-          "Transcribe {file} using {model} model. Output formats: {formats}. Language: {language}"
+          "Transcribe {absolute path of file} using {model} model. Output formats: {formats}.
+           Language: {language, or auto}. Output directory: {absolute dir, default the input file's dir}"
         </step>
         <step>For batch processing, consider parallel execution if multiple files</step>
         <step>Collect results from each transcription</step>
@@ -140,7 +131,7 @@ skills: video-editing:transcription
 </instructions>
 
 <orchestration>
-  <allowed_tools>Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep</allowed_tools>
+  <allowed_tools>Agent, AskUserQuestion, Bash, Read, Glob, Grep</allowed_tools>
   <forbidden_tools>Write, Edit</forbidden_tools>
 
   <agent_delegation>

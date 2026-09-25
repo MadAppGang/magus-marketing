@@ -3,8 +3,6 @@ name: transcription
 description: Provides Whisper transcription patterns — model selection, SRT/VTT/JSON, timing sync, diarization. Use when transcribing audio or video, or generating subtitles.
 user-invocable: false
 ---
-plugin: video-editing
-updated: 2026-01-20
 
 # Transcription with Whisper
 
@@ -76,11 +74,11 @@ whisper audio.mp3 --model small --word_timestamps True
 # Download model first
 ./models/download-ggml-model.sh base.en
 
-# Transcribe
-./main -m models/ggml-base.en.bin -f audio.wav -osrt
+# Transcribe (the binary is `whisper-cli`; confirm with `whisper-cli --help`)
+whisper-cli -m models/ggml-base.en.bin -f audio.wav -osrt
 
 # With timestamps
-./main -m models/ggml-base.en.bin -f audio.wav -ocsv
+whisper-cli -m models/ggml-base.en.bin -f audio.wav -ocsv
 ```
 
 ## Output Formats

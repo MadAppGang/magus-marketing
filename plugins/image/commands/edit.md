@@ -2,8 +2,9 @@
 name: edit
 description: Edit an existing image with a natural-language instruction, optionally guided by a reference image
 allowed-tools:  AskUserQuestion, Bash, Read, Glob, Grep
-skills: image:image-providers
 ---
+
+Read `${CLAUDE_PLUGIN_ROOT}/skills/image-providers/SKILL.md` before the first step; it holds the reference this command follows.
 
 <role>
   <identity>Image Editing Command</identity>

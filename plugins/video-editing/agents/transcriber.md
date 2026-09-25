@@ -32,10 +32,8 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
     </installation_check>
 
     <audio_preparation>
-      For best results, extract audio before transcription:
-      - Convert to 16kHz mono WAV for optimal Whisper input
-      - Apply noise reduction if audio quality is poor
-      - Validate audio stream exists in input file
+      Confirm the input has an audio stream, then extract it to 16kHz mono WAV — the rate
+      Whisper resamples to anyway. Apply noise reduction only when the prompt asks for it.
     </audio_preparation>
   </critical_constraints>
 
@@ -138,7 +136,7 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
   <example name="High-Quality Subtitles">
     <user_request>Create professional SRT subtitles for this documentary</user_request>
     <correct_approach>
-      1. Extract high-quality audio (no downsampling if source is good)
+      1. Extract audio to 16kHz mono WAV
       2. Use large-v3 model for best accuracy
       3. Add context prompt about documentary topic
       4. Generate with word-level timestamps
@@ -150,9 +148,8 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
 
 <formatting>
   <communication_style>
-    - Report model selection and estimated time
-    - Show progress for long transcriptions
-    - Provide accuracy notes (language confidence)
+    - Put the model choice, processing time and language confidence in the returned
+      message; text printed mid-run does not reach the user
     - List all output files generated
   </communication_style>
 

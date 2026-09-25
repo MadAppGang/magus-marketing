@@ -1,6 +1,6 @@
 {
   "name": "image",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Provider-agnostic AI image generation and editing over a pinned model registry: Google, OpenAI and ByteDance models behind one CLI, with per-model sizing, markdown style templates, and a background advisory when a pinned model goes stale.",
   "author": {
     "name": "Jack Rudenko",

@@ -2,8 +2,9 @@
 name: generate
 description: Generate images from text prompts with optional styles, reference images and aspect ratios
 allowed-tools:  AskUserQuestion, Bash, Read, Glob, Grep
-skills: image:image-providers
 ---
+
+Read `${CLAUDE_PLUGIN_ROOT}/skills/image-providers/SKILL.md` before the first step; it holds the reference this command follows.
 
 <role>
   <identity>Image Generation Command</identity>

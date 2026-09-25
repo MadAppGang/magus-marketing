@@ -3,8 +3,6 @@ name: final-cut-pro
 description: Final Cut Pro FCPXML reference — project structure, timelines, clip references, effects, transitions. Use when generating or reading FCP projects.
 user-invocable: false
 ---
-plugin: video-editing
-updated: 2026-01-20
 
 # Apple Final Cut Pro XML (FCPXML)
 
@@ -309,7 +307,7 @@ xmllint --noout project.fcpxml
 
 2. **Check file paths exist:**
 ```bash
-grep -oP 'src="file://[^"]+' project.fcpxml | while read src; do
+grep -o 'src="file://[^"]*' project.fcpxml | sort -u | while read -r src; do
   path="${src#src=\"file://}"
   [[ -f "$path" ]] || echo "Missing: $path"
 done

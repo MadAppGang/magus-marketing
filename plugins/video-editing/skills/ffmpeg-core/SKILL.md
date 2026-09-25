@@ -3,8 +3,6 @@ name: ffmpeg-core
 description: Provides FFmpeg patterns — trim, concat, convert, extract, codec selection, filter chains. Use when planning or executing video or audio processing tasks.
 user-invocable: false
 ---
-plugin: video-editing
-updated: 2026-01-20
 
 # FFmpeg Core Operations
 

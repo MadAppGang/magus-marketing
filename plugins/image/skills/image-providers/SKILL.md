@@ -23,13 +23,13 @@ bun src/main.ts --models        # what is pinned, and which keys are present
 for the current pins — that command reads the registry directly, so it cannot
 drift. The aliases below are stable; the IDs behind them change with the plugin.
 
-| Alias | Model | Tier | API key (any of) |
-|-------|-------|------|------------------|
-| `nano-banana-pro` | Nano Banana Pro | studio quality (default) | `GEMINI_API_KEY`, `GOOGLE_GEMINI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY` |
-| `nano-banana` | Nano Banana 2 | pro-level at Flash speed | same as above |
-| `nano-banana-lite` | Nano Banana 2 Lite | fastest / cheapest | same as above |
-| `gpt-image` | GPT Image 2 | OpenAI | `OPENAI_API_KEY` |
-| `seedream` | Seedream 4.5 | ByteDance via OpenRouter | `OPENROUTER_API_KEY` |
+| Alias | Provider | Tier | API key (any of) |
+|-------|----------|------|------------------|
+| `nano-banana-pro` | Google | studio quality (default) | `GEMINI_API_KEY`, `GOOGLE_GEMINI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY` |
+| `nano-banana` | Google | pro-level at Flash speed | same as above |
+| `nano-banana-lite` | Google | fastest / cheapest | same as above |
+| `gpt-image` | OpenAI | strongest text rendering | `OPENAI_API_KEY` |
+| `seedream` | ByteDance via OpenRouter | photographic realism | `OPENROUTER_API_KEY` |
 
 All five support `--edit` / `--ref`.
 
@@ -58,8 +58,9 @@ file.
 
 ## Model pinning and freshness
 
-These models are pinned deliberately and updated with the plugin — see
-CLAUDE.md → "Image model pinning" for the reasoning. A background check
+These models are pinned deliberately and updated with the plugin: each one needs
+provider-specific wiring, and a model the plugin was never tested against can
+silently produce bad output. A background check
 compares the pins against the live image catalog and prints an advisory when
 something newer ships. It is advisory only: it never switches models, never
 blocks generation, and stays silent when it cannot reach the catalog. Disable
@@ -77,7 +78,7 @@ it with `--no-check`.
 | 9:16 | Mobile, stories |
 | 16:9 | YouTube, desktop |
 | 21:9 | Cinematic, ultrawide |
-| 1:4, 4:1, 1:8, 8:1 | Banners and strips (Nano Banana 2) |
+| 1:4, 4:1, 1:8, 8:1 | Banners and strips (not every model; `--help` lists the valid set) |
 
 ## CLI Flags
 

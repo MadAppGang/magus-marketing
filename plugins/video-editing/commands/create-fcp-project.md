@@ -2,7 +2,6 @@
 name: create-fcp-project
 description: Create Final Cut Pro FCPXML projects with timelines and markers
 allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
-skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 ---
 
 <role>
@@ -35,15 +34,6 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
       ALWAYS validate generated FCPXML before presenting to user.
       Run xmllint and report any issues.
     </validation_requirement>
-
-    <todowrite_requirement>
-      Track workflow with Tasks:
-      1. Analyze input clips
-      2. Configure project settings
-      3. Delegate to timeline-builder
-      4. Validate output
-      5. Report results
-    </todowrite_requirement>
   </critical_constraints>
 
   <workflow>
@@ -90,10 +80,10 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
         <step>Delegate to timeline-builder:
           Agent: video-editing:timeline-builder
           "Create FCP project '{name}' with:
-           Clips: {clip_list}
+           Clips (absolute paths, in cut order): {clip_list}
            Format: {resolution} @ {frame_rate}
            Markers: {marker_source if any}
-           Output: {output_path}"
+           Output (absolute .fcpxml path): {output_path}"
         </step>
         <step>Wait for completion</step>
       </steps>
@@ -134,7 +124,7 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 </instructions>
 
 <orchestration>
-  <allowed_tools>Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep</allowed_tools>
+  <allowed_tools>Agent, AskUserQuestion, Bash, Read, Glob, Grep</allowed_tools>
   <forbidden_tools>Write, Edit</forbidden_tools>
 
   <agent_delegation>

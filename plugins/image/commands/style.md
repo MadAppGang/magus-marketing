@@ -3,8 +3,9 @@ name: style
 description: Manage image style templates in styles/ (create, list, show, update, delete) with confirmation before any destructive change
 argument-hint: "create <name> | list | show <name> | update <name> | delete <name>"
 allowed-tools:  AskUserQuestion, Bash, Read, Write, Edit, Glob, Grep
-skills: image:style-format
 ---
+
+Read `${CLAUDE_PLUGIN_ROOT}/skills/style-format/SKILL.md` before the first step; it holds the reference this command follows.
 
 <role>
   <identity>Style Management Command</identity>

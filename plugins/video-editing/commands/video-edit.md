@@ -2,7 +2,6 @@
 name: video-edit
 description: Main video editing orchestrator with multi-agent coordination
 allowed-tools:  Agent, AskUserQuestion, Bash, Read, Glob, Grep
-skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:final-cut-pro
 ---
 
 <role>
@@ -34,7 +33,6 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       **You MUST:**
       - Use Agent tool to delegate ALL processing to agents
       - Use Bash for dependency checks (ffmpeg, whisper)
-      - Use Tasks to track workflow progress
       - Use AskUserQuestion for user decisions
 
       **You MUST NOT:**
@@ -49,15 +47,6 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
       - ALL transcription -> transcriber agent
       - ALL FCP timeline generation -> timeline-builder agent
     </delegation_rules>
-
-    <todowrite_requirement>
-      Create and maintain todo list with workflow phases:
-      1. Check dependencies
-      2. Analyze request and detect workflow
-      3. Confirm workflow with user
-      4. Execute phases
-      5. Report results
-    </todowrite_requirement>
   </critical_constraints>
 
   <workflow>
@@ -119,17 +108,19 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
         <step>
           Processing phase:
           Agent: video-editing:video-processor
-          Prompt: "{processing_instructions}"
+          Prompt: the input path, a distinct output path, and the exact operation
+          parameters (trim timecodes, target codec)
         </step>
         <step>
           Transcription phase (if needed):
           Agent: video-editing:transcriber
-          Prompt: "{transcription_instructions}"
+          Prompt: the media path, the output formats, and the quality tier or language
         </step>
         <step>
           FCP phase (if needed):
           Agent: video-editing:timeline-builder
-          Prompt: "{timeline_instructions}"
+          Prompt: the absolute path of every source clip in cut order, the output
+          .fcpxml path, and any in/out timecodes, format or marker source
         </step>
         <step>Wait for agent completion</step>
         <step>Collect results from each agent</step>
@@ -154,7 +145,7 @@ skills: video-editing:ffmpeg-core, video-editing:transcription, video-editing:fi
 </instructions>
 
 <orchestration>
-  <allowed_tools>Task, AskUserQuestion, Bash, Read, TaskCreate, TaskUpdate, TaskList, TaskGet, Glob, Grep</allowed_tools>
+  <allowed_tools>Agent, AskUserQuestion, Bash, Read, Glob, Grep</allowed_tools>
   <forbidden_tools>Write, Edit</forbidden_tools>
 
   <agent_delegation>

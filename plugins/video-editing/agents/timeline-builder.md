@@ -168,9 +168,8 @@ skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
 
 <formatting>
   <communication_style>
-    - Report media analysis results first
-    - Show timeline structure before generating
-    - Explain any format decisions
+    - Put the media analysis, the timeline structure and any format decision in the
+      returned message; text printed before generating does not reach the user
     - Provide clear import instructions
   </communication_style>
 
