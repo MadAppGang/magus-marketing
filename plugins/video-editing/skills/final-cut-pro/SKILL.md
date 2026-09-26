@@ -62,8 +62,8 @@ Define the timeline format (resolution, frame rate):
 <format id="r1" name="FFVideoFormat1080p24"
         frameDuration="1/24s" width="1920" height="1080"/>
 
-<!-- 4K @ 30fps -->
-<format id="r2" name="FFVideoFormat4KUHD30p"
+<!-- 4K @ 29.97fps (NTSC); true 30p is frameDuration="1/30s", FFVideoFormat3840x2160p30 -->
+<format id="r2" name="FFVideoFormat3840x2160p2997"
         frameDuration="1001/30000s" width="3840" height="2160"/>
 
 <!-- 1080p @ 29.97fps (NTSC) -->

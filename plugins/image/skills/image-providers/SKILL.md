@@ -46,8 +46,7 @@ not silently resolve to `seedream`; the CLI lists the supported set instead.
 helper appends it without one, so `/images/edits` rejects the request. Verified
 experimentally: identical bytes succeed the moment a filename is attached. The
 plugin therefore calls `/images/edits` directly for this one case
-(`src/openai-edit.ts`); everything else goes through the AI SDK. Delete that
-module once the SDK passes a filename.
+(`src/openai-edit.ts`); everything else goes through the AI SDK.
 
 ### Output format
 

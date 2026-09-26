@@ -60,7 +60,7 @@ skills: video-editing:transcription, video-editing:ffmpeg-core
   <workflow>
     <phase number="1" name="Setup Verification">
       <step>Verify Whisper is installed: whisper --help</step>
-      <step>Check available models: whisper --list-models (if supported)</step>
+      <step>Check the model names this install accepts: `whisper --help` lists them under `--model`</step>
       <step>If not installed, stop: return the completion message with the installation guide under Obstacles Encountered and "not run" in place of the outputs</step>
     </phase>
 

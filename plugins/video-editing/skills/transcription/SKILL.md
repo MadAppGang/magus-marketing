@@ -180,19 +180,23 @@ ffprobe -v error -count_frames -select_streams v:0 \
 
 ## Speaker Diarization
 
-For multi-speaker content, use pyannote.audio:
+For multi-speaker content, use pyannote.audio. The pipeline is gated on Hugging Face:
+accept its terms on the model page and create an access token first.
 
 ```bash
 pip install pyannote.audio
 ```
 
 ```python
+import os
 from pyannote.audio import Pipeline
 
-pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1")
-diarization = pipeline("audio.wav")
+pipeline = Pipeline.from_pretrained(
+    "pyannote/speaker-diarization-community-1",
+    token=os.environ["HF_TOKEN"])
+output = pipeline("audio.wav")
 
-for turn, _, speaker in diarization.itertracks(yield_label=True):
+for turn, speaker in output.speaker_diarization:
     print(f"{turn.start:.1f}s - {turn.end:.1f}s: {speaker}")
 ```
 
