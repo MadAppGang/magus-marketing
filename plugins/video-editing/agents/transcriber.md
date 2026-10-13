@@ -1,5 +1,6 @@
 ---
 name: transcriber
+color: green
 description: Transcribes audio and video with Whisper, emitting SRT, VTT, JSON or TXT. Use when a recording needs subtitles, a searchable transcript, or timed captions. Name the exact media path, the output formats wanted, and the quality tier or spoken language; otherwise it guesses the model and emits all four.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:transcription, video-editing:ffmpeg-core

@@ -1,5 +1,6 @@
 ---
 name: video-processor
+color: orange
 description: Processes video and audio with FFmpeg — trim, concatenate, convert, extract streams. Use when a media file needs cutting, joining, re-encoding, or an audio track pulled out of it. Name the exact input path, a distinct output path since sources are never overwritten, and the operation's exact parameters such as trim timecodes or a target codec.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:ffmpeg-core

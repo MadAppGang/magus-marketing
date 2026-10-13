@@ -4,6 +4,16 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [video-editing 1.4.0] - 2026-10-13
+
+### Added
+
+- **All three agents have a `color:` field again:** `timeline-builder` is `blue`,
+  `transcriber` green, `video-processor` orange. With `agent-colours` installed, their
+  names are drawn on those badges.
+
+---
+
 ## [image 4.0.1] - 2026-09-23
 
 ### Added

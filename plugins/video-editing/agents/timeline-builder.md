@@ -1,5 +1,6 @@
 ---
 name: timeline-builder
+color: blue
 description: Builds Final Cut Pro projects, timelines and multicam sequences as FCPXML. Use when assembling clips into an editable timeline, or when a cut needs handing to an editor in Final Cut. Name the absolute path of every source media file in cut order plus the output .fcpxml path, and any in/out timecodes, target format or marker text; it cannot guess clip order.
 tools: Read, Write, Edit, Bash, Glob, Grep
 skills: video-editing:final-cut-pro, video-editing:ffmpeg-core
