@@ -15,7 +15,7 @@
       "name": "video-editing",
       "source": "./plugins/video-editing",
       "description": "Video editing toolkit. Drives FFmpeg for cutting and encoding, Whisper for transcription and subtitles, and Apple Final Cut Pro for project-level work.",
-      "version": "1.4.0",
+      "version": "1.5.0",
       "author": {
         "name": "Jack Rudenko",
         "email": "i@madappgang.com",
@@ -36,6 +36,14 @@
       ],
       "strict": true,
       "releases": [
+        {
+          "version": "1.5.0",
+          "date": "2026-11-26",
+          "kinds": [
+            "Changed"
+          ],
+          "summary": "The three video-editing agents get every tool of their session, MCP tools included"
+        },
         {
           "version": "1.4.0",
           "date": "2026-10-13",
@@ -61,11 +69,6 @@
             "Changed"
           ],
           "summary": "timeline-builder, transcriber and video-processor now say what the caller must hand over, and\u2026"
-        },
-        {
-          "version": "1.2.2",
-          "date": "2026-08-26",
-          "summary": "The same manifest move, with no change to what each registers"
         }
       ]
     },

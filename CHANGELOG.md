@@ -4,6 +4,16 @@
 > The complete history across every plugin and channel lives in `CHANGELOG.md` at
 > [MadAppGang/magus-src](https://github.com/MadAppGang/magus-src).
 
+## [video-editing 1.5.0] - 2026-11-26
+
+### Changed
+
+- **The three video-editing agents get every tool of their session, MCP tools included.**
+  `timeline-builder`, `transcriber` and `video-processor` declare no `tools:` list any
+  more.
+
+---
+
 ## [video-editing 1.4.0] - 2026-10-13
 
 ### Added
